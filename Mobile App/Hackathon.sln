@@ -1,0 +1,89 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{262852C6-CD72-467D-83FE-5EEB1973A190}") = "Hackathon", "Hackathon\Hackathon.jsproj", "{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Android = Debug|Android
+		Debug|iOS = Debug|iOS
+		Debug|Windows Phone (Universal) = Debug|Windows Phone (Universal)
+		Debug|Windows Phone 8 = Debug|Windows Phone 8
+		Debug|Windows-AnyCPU = Debug|Windows-AnyCPU
+		Debug|Windows-ARM = Debug|Windows-ARM
+		Debug|Windows-x64 = Debug|Windows-x64
+		Debug|Windows-x86 = Debug|Windows-x86
+		Release|Android = Release|Android
+		Release|iOS = Release|iOS
+		Release|Windows Phone (Universal) = Release|Windows Phone (Universal)
+		Release|Windows Phone 8 = Release|Windows Phone 8
+		Release|Windows-AnyCPU = Release|Windows-AnyCPU
+		Release|Windows-ARM = Release|Windows-ARM
+		Release|Windows-x64 = Release|Windows-x64
+		Release|Windows-x86 = Release|Windows-x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Debug|Android.ActiveCfg = Debug|Android
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Debug|Android.Build.0 = Debug|Android
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Debug|Android.Deploy.0 = Debug|Android
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Debug|iOS.ActiveCfg = Debug|iOS
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Debug|iOS.Build.0 = Debug|iOS
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Debug|iOS.Deploy.0 = Debug|iOS
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Debug|Windows Phone (Universal).ActiveCfg = Debug|Windows Phone (Universal)
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Debug|Windows Phone (Universal).Build.0 = Debug|Windows Phone (Universal)
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Debug|Windows Phone (Universal).Deploy.0 = Debug|Windows Phone (Universal)
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Debug|Windows Phone 8.ActiveCfg = Debug|Windows Phone 8
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Debug|Windows Phone 8.Build.0 = Debug|Windows Phone 8
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Debug|Windows Phone 8.Deploy.0 = Debug|Windows Phone 8
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Debug|Windows-AnyCPU.ActiveCfg = Debug|Windows-AnyCPU
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Debug|Windows-AnyCPU.Build.0 = Debug|Windows-AnyCPU
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Debug|Windows-AnyCPU.Deploy.0 = Debug|Windows-AnyCPU
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Debug|Windows-ARM.ActiveCfg = Debug|Windows-ARM
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Debug|Windows-ARM.Build.0 = Debug|Windows-ARM
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Debug|Windows-ARM.Deploy.0 = Debug|Windows-ARM
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Debug|Windows-x64.ActiveCfg = Debug|Windows-x64
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Debug|Windows-x64.Build.0 = Debug|Windows-x64
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Debug|Windows-x64.Deploy.0 = Debug|Windows-x64
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Debug|Windows-x86.ActiveCfg = Debug|Windows-x86
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Debug|Windows-x86.Build.0 = Debug|Windows-x86
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Debug|Windows-x86.Deploy.0 = Debug|Windows-x86
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Release|Android.ActiveCfg = Release|Android
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Release|Android.Build.0 = Release|Android
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Release|Android.Deploy.0 = Release|Android
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Release|iOS.ActiveCfg = Release|iOS
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Release|iOS.Build.0 = Release|iOS
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Release|iOS.Deploy.0 = Release|iOS
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Release|Windows Phone (Universal).ActiveCfg = Release|Windows Phone (Universal)
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Release|Windows Phone (Universal).Build.0 = Release|Windows Phone (Universal)
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Release|Windows Phone (Universal).Deploy.0 = Release|Windows Phone (Universal)
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Release|Windows Phone 8.ActiveCfg = Release|Windows Phone 8
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Release|Windows Phone 8.Build.0 = Release|Windows Phone 8
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Release|Windows Phone 8.Deploy.0 = Release|Windows Phone 8
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Release|Windows-AnyCPU.ActiveCfg = Release|Windows-AnyCPU
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Release|Windows-AnyCPU.Build.0 = Release|Windows-AnyCPU
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Release|Windows-AnyCPU.Deploy.0 = Release|Windows-AnyCPU
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Release|Windows-ARM.ActiveCfg = Release|Windows-ARM
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Release|Windows-ARM.Build.0 = Release|Windows-ARM
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Release|Windows-ARM.Deploy.0 = Release|Windows-ARM
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Release|Windows-x64.ActiveCfg = Release|Windows-x64
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Release|Windows-x64.Build.0 = Release|Windows-x64
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Release|Windows-x64.Deploy.0 = Release|Windows-x64
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Release|Windows-x86.ActiveCfg = Release|Windows-x86
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Release|Windows-x86.Build.0 = Release|Windows-x86
+		{EEB23A23-3B1F-458F-9F69-FEEFB473BC7B}.Release|Windows-x86.Deploy.0 = Release|Windows-x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://amgad.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Hackathon\\Hackathon.jsproj
+		SccProjectName1 = Hackathon
+		SccLocalPath1 = Hackathon
+	EndGlobalSection
+EndGlobal
