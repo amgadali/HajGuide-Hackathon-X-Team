@@ -1,0 +1,1721 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Lock viewport to prevent scaling -->
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="description" content="مرشد الحاج">
+    <meta name="author" content="">
+    <link rel="icon" href="https://www.esri.com/favicon.ico">
+    <title>مرشد الحاج</title>
+    <!-- Bootstrap - For testing only -->
+    <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"-->
+    <!-- Calcite Maps Bootstrap -->
+    <link rel="stylesheet" href="../../dist/css/calcite-maps-bootstrap-v0.7.css">
+    <!-- Calcite Maps -->
+    <link rel="stylesheet" href="../../dist/css/calcite-maps-arcgis-4.x.min-v0.7.css">
+
+    <!-- ArcGIS JS 4.x -->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.7/esri/css/main.css">
+    <!--link rel="stylesheet" href="../../dist/css/arcgis/themes/light/main.css"-->
+    <link href="../../dist/css/bootstrap-rtl.min.css" rel="stylesheet" />
+    <style>
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .body-light {
+            background-color: white;
+        }
+
+        #panelInfo .esri-icon.esri-icon-map-pin {
+            margin-right: 10px;
+            font-size: 25px;
+        }
+
+        #panelInfo .info-title {
+            font-size: 20px;
+        }
+
+        .form-box {
+            display: flex;
+            margin: 0px 15px;
+            padding: 15px 0;
+            border: 1px solid rgba(255,255,255,.35);
+            background-color: rgba(130,130,130,.1);
+        }
+
+        .btn-color-close {
+            margin-top: -17px;
+            margin-right: -21px;
+            font-size: 14px;
+            color: #828282;
+        }
+
+            .btn-color-close:hover,
+            .btn-color-close:focus {
+                color: #000;
+            }
+
+        .control-padding-top {
+            padding-top: 5px;
+        }
+
+        .padding-right-none {
+            padding-right: 0;
+        }
+
+        .info-title {
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+
+        /* Color Widget */
+
+        .esri-color-picker .esri-swatch-preview.esri-container,
+        .esri-color-picker .esri-header,
+        .esri-color-picker .esri-footer,
+        .esri-color-picker .esri-palette-options .esri-palette-toggle > input,
+        .dijitReset .dijitToggleButtonIconChar,
+        .esri-color-picker .esri-palette-options .esri-palette-toggle {
+            display: none;
+        }
+
+        .esri-color-picker.esri-container {
+            border: 0;
+            padding: 0;
+            border-radius: 0;
+            background-color: transparent;
+        }
+
+        .esri-color-picker .esri-hex-input {
+            border: 0;
+            width: 100%;
+        }
+
+        .esri-color-picker .esri-swatch-row {
+            line-height: 1;
+        }
+
+        .esri-color-picker .esri-swatch {
+            width: 13px;
+            height: 13px;
+        }
+
+        .esri-color-picker .esri-hex-input .dijitInputInner {
+            font-size: 12px;
+            width: 100%;
+            padding: 2px 4px;
+        }
+
+        /*Time Line Css*/
+
+        /* The actual timeline (the vertical ruler) */
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+            /* The actual timeline (the vertical ruler) */
+            .timeline::after {
+                content: '';
+                position: absolute;
+                width: 6px;
+                top: 0;
+                bottom: 0;
+                left: 50%;
+                margin-left: -3px;
+            }
+
+        /* Container around content */
+        .container {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+
+            /* The circles on the timeline */
+            .container::after {
+                content: '';
+                position: absolute;
+                width: 25px;
+                height: 25px;
+                right: -17px;
+                border: 4px solid #FF9F55;
+                top: 15px;
+                border-radius: 50%;
+                z-index: 1;
+            }
+
+        /* Place the container to the left */
+        .left {
+            left: 0;
+        }
+
+        /* Place the container to the right */
+        .right {
+            left: 50%;
+        }
+
+        /* Add arrows to the left container (pointing right) */
+        .left::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            right: 30px;
+            border: medium solid white;
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent white;
+        }
+
+        /* Add arrows to the right container (pointing left) */
+        .right::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            left: 30px;
+            border: medium solid white;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent white transparent transparent;
+        }
+
+        /* Fix the circle for containers on the right side */
+        .right::after {
+            left: -16px;
+        }
+
+        /* The actual content */
+        .content {
+            padding: 20px 30px;
+            position: relative;
+            border-radius: 6px;
+        }
+
+        /* Media queries - Responsive timeline on screens less than 600px wide */
+        @media screen and (max-width: 600px) {
+            /* Place the timelime to the left */
+            .timeline::after {
+                left: 31px;
+            }
+
+            /* Full-width containers */
+            .container {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+                /* Make sure that all arrows are pointing leftwards */
+                .container::before {
+                    left: 60px;
+                    border: medium solid white;
+                    border-width: 10px 10px 10px 0;
+                    border-color: transparent white transparent transparent;
+                }
+
+            /* Make sure all circles are at the same spot */
+            .left::after, .right::after {
+                left: 15px;
+            }
+
+            /* Make all right containers behave like the left ones */
+            .right {
+                left: 0%;
+            }
+        }
+
+        .Sammary {
+            width: 100%;
+            text-align: right;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body class="calcite-maps calcite-nav-top">
+    <!-- Navbar -->
+    <nav class="navbar navbar-fixed-top calcite-navbar calcite-bg-custom calcite-text-light" style="background-color: rgb(76, 76, 76);">
+        <!-- Menu -->
+        <div class="dropdown calcite-dropdown calcite-bg-light calcite-text-dark" role="presentation">
+            <!--a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"-->
+            <a class="dropdown-toggle" role="menubutton" aria-haspopup="true" aria-expanded="false" tabindex="0">
+                <div class="calcite-dropdown-toggle">
+                    <span class="sr-only">Toggle dropdown menu</span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a role="menuitem" tabindex="0" data-target="#modalSplash" data-toggle="modal" aria-haspopup="true"> تغيير المستخدم</a></li>
+                <li><a id="btncampaign" role="menuitem" data-target="#panelcampaign" aria-haspopup="true"><span class="esri-icon-radio-checked"> </span> حملتى    </a></li>
+                <li><a role="menuitem" data-target="#panelTimeLine" aria-haspopup="true"> <span class="glyphicon glyphicon-calendar"></span> مواعيد التفويج </a></li>
+                <li><a id="btnMotouf" role="menuitem" data-target="#panelGo" aria-haspopup="true"><span class="esri-icon-organization"></span> شركة الطوافة </a></li>
+                <li><a id="btnHaram" role="menuitem" data-target="#panelGo" aria-haspopup="true"><span class="esri-icon-polyline"></span> الى الحرم  </a></li>
+                <li><a id="btnGamarat" role="menuitem" data-target="#panelGo" aria-haspopup="true"> <span class="esri-icon-polyline"></span>الى الجمرات </a></li>
+                <!--<li><a id="btnToHotel"  role="menuitem" data-target="#mapTab" aria-haspopup="true"> <span class="esri-icon-polyline"></span>الى الفندق </a></li>-->
+                <li><a id="btnRailSation" role="menuitem" data-target="#mapTab" aria-haspopup="true"> <span class="glyphicon glyphicon-map-marker"></span> أقرب محطة قطار  </a></li>
+                <li><a id="btnHospital" role="menuitem" data-target="#mapTab" aria-haspopup="true"> <span class="glyphicon glyphicon-map-marker"></span> أقرب مستشفى   </a></li>
+                <li><a id="btnPlice" role="menuitem" data-target="#mapTab" aria-haspopup="true"> <span class="glyphicon glyphicon-map-marker"></span> أقرب مركز شرطة   </a></li>
+                <li><a id="btndeen" role="menuitem" data-target="#mapTab" aria-haspopup="true">  <span class="glyphicon glyphicon-map-marker"></span> أقرب مكتب ارشاد   </a></li>
+                <li><a role="menuitem" data-target="#mapTab" aria-haspopup="true"> <span class="glyphicon glyphicon-map-marker"></span> أقرب مسجد   </a></li>
+                <li><a role="menuitem" data-target="#mapTab" aria-haspopup="true"> <span class="glyphicon glyphicon-map-marker"></span> أقرب دورة مياه   </a></li>
+
+
+
+                <li><a role="menuitem" tabindex="0" data-target="#panelBasemaps" aria-haspopup="true"><span class="glyphicon glyphicon-th-large"></span> خرائط الاساس</a></li>
+                <li><a role="menuitem" tabindex="0" data-target="#panelBookmarks" aria-haspopup="true"><span class="glyphicon glyphicon-book"></span> علامات</a></li>
+                <li><a role="menuitem" tabindex="0" data-target="#panelLegend" aria-haspopup="true"><span class="glyphicon glyphicon-list"></span> مفتاح الخريطه</a></li>
+                <li><a role="menuitem" tabindex="0" data-target="#panelLayerlist" aria-haspopup="true"><span class="glyphicon glyphicon-list-alt"></span> طبقات الخريطه</a></li>
+                <li><a role="menuitem" tabindex="0" data-target="#panelInfo" aria-haspopup="true"><span class="glyphicon glyphicon-info-sign"></span> المساعدة</a></li>
+                <li><a role="menuitem" tabindex="0" data-target="#panelSettings" aria-haspopup="true"><span class="glyphicon glyphicon-cog"></span> إعدادات</a></li>
+                <li><a role="menuitem" tabindex="0" id="calciteToggleNavbar" aria-haspopup="true"><span class="glyphicon glyphicon-fullscreen"></span> خريطه ملئ الشاشة</a></li>
+            </ul>
+        </div>
+        <!-- Title -->
+        <div class="calcite-title calcite-overflow-hidden">
+            <span class="calcite-title-mainz hidden-xs">Style Explorer</span>
+            <span class="calcite-title-divider hidden-xs"></span>
+            <span class="calcite-title-sub hidden-xs">مرشدك في رحلة الحاج </span>
+        </div>
+        <!-- Nav -->
+        <ul class="calcite-nav nav navbar-nav">
+            <li class="active"><a id="mapNav" class="hidden-xs hidden-sm" href="#mapTab" aria-controls="mapTab" aria-expanded="true" role="tab" data-toggle="tab" data-tooltip="tip" title="2D View" data-placement="bottom">Map</a></li>
+            <li><a id="sceneNav" class="hidden-xs hidden-sm" href="#sceneTab" aria-controls="sceneTab" role="tab" data-toggle="tab" data-tooltip="tip" title="3D View" data-placement="bottom">Scene</a></li>
+            <li><div class="calcite-navbar-search calcite-search-expanded" tabindex="-1"><div id="searchNavDiv" tabindex="0"></div></div></li>
+        </ul>
+    </nav><!--/.navbar -->
+    <!-- Modal Window -->
+    <div class="modal fade in" id="modalSplash" tabindex="-1" role="dialog" aria-labelledby="splashlModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="splash-body">
+                                <div class="text-center">
+                                    <h3>مرشد الحاج</h3>
+                                    <hr>
+                                    <p>تطبيق مرشد الحاج يسهل على الحاج إكتشاف الامكان الضرورية أثناء رحلة الحج،كما يساعد التطبيق الحاج على تتبع الجدول الزمنى لحملة الحج  </p>
+
+                                    <br />
+                                    <br />
+                                    <p>رجاء ادخل الرقم التعريفي الخاص بك</p>
+
+                                    <div class="form-inline">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="HajjID" placeholder="أدخل رقم التعريف ">
+                                            <br>
+
+                                            <button id="search" type="button" class="btn btn-success btn-lg" onclick="javascript:$('#modalSplash').hide()" data-target="#modalConfirm" data-toggle="modal">بحث</button>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade in" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="splashlModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="splash-body">
+                                <div class="text-center">
+                                    <h3>مرشد الحاج</h3>
+                                    <hr>
+                                    <p>مرحبا بالسيد:محمد عبد الله محمد</p>
+
+                                    <p>تقبل الله حجكم </p>
+                        
+                                    <div class="form-inline">
+                                        <div class="form-group">
+
+
+                                            <button id="btnstart" type="button" class="btn btn-success btn-lg" data-dismiss="modal">إبداء</button>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Map Container  -->
+    <div class="calcite-map calcite-map-absolute">
+        <div id="tabContainer" class="tab-content">
+            <div id="mapTab" class="tab-pane fade in active" role="tabpanel">
+                <div id="mapViewDiv"></div>
+            </div>
+            <div id="sceneTab" class="tab-pane fade" role="tabpanel">
+                <div id="sceneViewDiv"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Panel Container -->
+
+    <div class="calcite-panels calcite-panels-right calcite-bg-custom calcite-text-light panel-group" role="tablist" aria-multiselectable="true" style="background-color: rgb(76, 76, 76);">
+
+        <!-- Panel - Info -->
+        <div id="panelInfo" class="panel collapse">
+            <div id="headingInfo" class="panel-heading" role="tab">
+                <div class="panel-title">
+                    <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseInfo" aria-expanded="true" aria-controls="collapseInfo"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span><span class="panel-label">Info</span></a>
+                    <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelInfo"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
+                </div>
+            </div>
+            <div id="collapseInfo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingInfo">
+                <div class="panel-body">
+                    <p><span class="esri-icon esri-icon-map-pin pull-left"></span><span class="info-title">مرشد الحاج</span></p>
+                    <!--<p>Use this application to quickly prototype and design map applications interactively.</p>
+                <p>Learn more about building custom<a href="https://github.com/esri/calcite-maps"> Calcite Maps apps here</a>.</p>-->
+                </div>
+            </div>
+        </div>
+        <div id="panelTimeLine" class="panel collapse">
+            <div id="headingTimeLine" class="panel-heading" role="tab">
+                <div class="panel-title">
+                    <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseTimeLine" aria-expanded="true" aria-controls="collapseTimeLine"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span><span class="panel-label">الجدول الزمنى</span></a>
+                    <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelTimeLine"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
+                </div>
+            </div>
+            <div id="collapseTimeLine" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTimeLine">
+                <div class="panel-body">
+                    <div class="timeline" style="direction:ltr;">
+                        <div class="container left" style="background-color:white;color:black;">
+                            <div class="content">
+                                <h4>01-12-1439 1:30 </h4>
+                                <p>موعد الاقلاع من مطار القاهرة</p>
+                            </div>
+                        </div>
+
+                        <div class="container right" style="background-color:white;color:black;">
+                            <div class="content">
+                                <h4>01-12-1439 12:00 AM </h4>
+                                <p>الوصول الى فندق الرحمة</p>
+                            </div>
+                        </div>
+                        <div class="container left" style="background-color:white;color:black;">
+                            <div class="content">
+                                <h4>08-12-1439 00:00 AM </h4>
+                                <p>مغادرة فندق الرحمة</p>
+                            </div>
+                        </div>
+                        <div class="container right" style="background-color:white;color:black;">
+                            <div class="content">
+                                <h4>08-12-1439 00:00 AM </h4>
+                                <p>الوصول الى منى</p>
+                            </div>
+                        </div>
+                        <div class="container left">
+                            <div class="content">
+                                <h4>09-12-1439 08:00 AM </h4>
+                                <p>الوصول الى عرفات</p>
+                            </div>
+                        </div>
+                        <div class="container right">
+                            <div class="content">
+                                <h4>09-12-1439 10:00 PM </h4>
+                                <p>مغادرة عرفات</p>
+                            </div>
+                        </div>
+                        <div class="container left">
+                            <div class="content">
+                                <h4>10-12-1439 02:30 AM </h4>
+                                <p>مغادرة المزدلفة</p>
+                            </div>
+                        </div>
+                        <div class="container right">
+                            <div class="content">
+                                <h4>12-12-1439 04:30 PM </h4>
+                                <p>مغادرة منى</p>
+                            </div>
+                        </div>
+                        <div class="container left">
+                            <div class="content">
+                                <h4>19-12-1439 02:00 PM </h4>
+                                <p>مغادرة فندق الرحمة</p>
+                            </div>
+                        </div>
+                        <div class="container right">
+                            <div class="content">
+                                <h4>19-12-1439 10:00 PM </h4>
+                                <p>موعد الاقلاع من مطار الملك عبد العزيز</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Panel - Search -->
+        <div id="panelSearch" class="panel collapse hidden-sm hidden-md hidden-lg">
+            <div id="headingSearch" class="panel-heading" role="tab">
+                <div class="panel-title">
+                    <a class="panel-toggle collapsed" role="button" data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch"><span class="glyphicon glyphicon-search" aria-hidden="true"></span><span class="panel-label">Search</span></a>
+                    <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelSearch"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
+                </div>
+            </div>
+            <div id="collapseSearch" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSearch">
+                <div class="panel-body calcite-body-expander">
+                    <div id="searchPanelDiv"></div>
+                </div>
+            </div>
+        </div>
+        <!-- Panel - Basemaps -->
+        <div id="panelBasemaps" class="panel collapse">
+            <div id="headingBasemaps" class="panel-heading" role="tab">
+                <div class="panel-title">
+                    <a class="panel-toggle collapsed" role="button" data-toggle="collapse" href="#collapseBasemaps" aria-expanded="false" aria-controls="collapseBasemaps"><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span><span class="panel-label">خرائط الاساس</span></a>
+                    <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelBasemaps"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
+                </div>
+            </div>
+            <div id="collapseBasemaps" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingBasemaps">
+                <div class="panel-body">
+                    <select id="selectBasemapPanel" class="form-control">
+                        <option value="streets" data-vector="streets-vector">الطرق</option>
+                        <option value="satellite" data-vector="satellite">صورة جوية</option>
+                        <option value="hybrid" data-vector="hybrid">صورة جوية مع الطرق</option>
+                        <option value="topo" data-vector="topo-vector">خريطه طبوغرافية</option>
+                        <option value="dark-gray" data-vector="dark-gray-vector">خريطه ليلية</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!-- campaign -->
+        <div id="panelcampaign" class="panel collapse">
+            <div id="headingcampaign" class="panel-heading" role="tab">
+                <div class="panel-title">
+                    <a class="panel-toggle collapsed" role="button" data-toggle="collapse" href="#collapseBasemaps" aria-expanded="false" aria-controls="collapseBasemaps"><span class="esri-icon-radio-checked" aria-hidden="true"></span><span class="panel-label">حملتى</span></a>
+                    <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelcampaign"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
+                </div>
+            </div>
+            <div id="collapsecampaign" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingcampaign">
+                <div class="panel-body">
+                    <select id="selectcampaign" class="form-control" style="direction:rtl;  font-size: large;">
+                        <option value="1" data-vector="1" selected>1 - فندق الرحمة</option>
+                        <option value="2" data-vector="2">2 - منى</option>
+                        <option value="3" data-vector="3">3 - عرفة </option>
+                        <option value="4" data-vector="4">4 - المزدلفة</option>
+                        <option value="5" data-vector="5">5- منى</option>
+                        <option value="6" data-vector="6">6 - فندق الرحمة</option>
+
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!-- Panel - Bookmarks -->
+        <div id="panelBookmarks" class="panel collapse">
+            <div id="headingBookmarks" class="panel-heading" role="tab">
+                <div class="panel-title">
+                    <a class="panel-toggle collapsed" role="button" data-toggle="collapse" href="#collapseBookmarks" aria-expanded="false" aria-controls="collapseBookmarks"><span class="glyphicon glyphicon-book" aria-hidden="true"></span><span class="panel-label">ملخص الحالة</span></a>
+                    <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelBookmarks"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
+                </div>
+            </div>
+            <div id="collapseBookmarks" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingBookmarks">
+                <div class="panel-body">
+
+
+
+
+                    <div class="Sammary">
+                        <p><span class="glyphicon glyphicon-map-marker"></span>أنت الان في مدينة جدة</p>
+                        <br />
+                        <p><span class="glyphicon glyphicon-record"></span>حسب الجدول الزمنى يجب أنت تتواجد في (منى)</p>
+                        <br />
+                        <p><span class="glyphicon glyphicon-time"></span>باقى 16 ساعة :25 دقيقة على مغادرة منى</p>
+                        <br />
+                        <p><span class="glyphicon glyphicon-bell"></span>انت على بعد 97 كيلو متر من المسكن</p>
+                        <a><span class="glyphicon glyphicon-home"></span>إضغط هنا للرجوع للمسكن</a>
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+        <!-- Panel - Legend -->
+        <div id="panelLegend" class="panel collapse">
+            <div id="headingLegend" class="panel-heading" role="tab">
+                <div class="panel-title">
+                    <a class="panel-toggle collapsed" role="button" data-toggle="collapse" href="#collapseLegend" aria-expanded="false" aria-controls="collapseLegend"><span class="glyphicon glyphicon-list" aria-hidden="true"></span><span class="panel-label">مفتاح الخريطة</span></a>
+                    <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelLegend"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
+                </div>
+            </div>
+            <div id="collapseLegend" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingLegend">
+                <div class="panel-body body-light">
+                    <div id="legendDiv"></div>
+                </div>
+            </div>
+        </div>
+        <!-- Panel - LayerList -->
+        <div id="panelLayerlist" class="panel collapse">
+            <div id="headingLayerlist" class="panel-heading" role="tab">
+                <div class="panel-title">
+                    <a class="panel-toggle collapsed" role="button" data-toggle="collapse" href="#collapseLayerlist" aria-expanded="false" aria-controls="collapseLayerlist"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span><span class="panel-label">الطبقات</span></a>
+                    <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelLayerlist"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
+                </div>
+            </div>
+            <div id="collapseLayerlist" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingLayerlist">
+                <div class="panel-body body-light">
+                    <div id="layerlistDiv"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel - Print -->
+        <!-- Panel - Go -->
+        <div id="panelGo" class="panel collapse">
+            <div id="headingGo" class="panel-heading">
+                <div class="panel-title">
+                    <a class="panel-toggle collapsed" role="button" data-toggle="collapse" href="#collapseGo" aria-expanded="false" aria-controls="collapseGo"><span class="glyphicon glyphicon-Go" aria-hidden="true"></span><span class="panel-label">معلومات</span></a>
+                    <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelGo"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
+                </div>
+            </div>
+            <div id="collapseGo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingGo">
+                <div id="infoPanel" class="panel-body">
+
+                </div>
+                <div class="form-inline">
+                    <div class="form-group">
+
+
+                        <button id="btnGo" type="button" class="btn btn-success btn-lg" data-dismiss="modal">الوصول الى الموقع</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel - Settings -->
+        <div id="panelSettings" class="panel collapse">
+
+            <div id="headingSettings" class="panel-heading">
+                <div class="panel-title">
+                    <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseSettings" aria-expanded="true" aria-controls="collapseSettings"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span><span class="panel-label">Settings</span></a>
+                    <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelSettings"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
+                </div>
+            </div>
+
+            <div id="collapseSettings" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingSettings">
+                <div class="panel-body">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#title" aria-controls="title" role="tab" data-toggle="tab">Name</a></li>
+                        <li role="presentation"><a href="#map" aria-controls="map" role="tab" data-toggle="tab">Map</a></li>
+                        <li role="presentation"><a href="#theme" aria-controls="theme" role="tab" data-toggle="tab">Theme</a></li>
+                        <li role="presentation"><a href="#custom" aria-controls="custom" role="tab" data-toggle="tab">Layout</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <!-- Tab -Title
+
+                    <div role="tabpanel" class="tab-pane active" id="title">
+                        <div class="calcite-form-title">1. Set the map name and call to action</div>
+                        <div class="form-horizontal calcite-form-padding">
+                            <div class="form-group">
+                                <label for="settingsTitleInput" class="col-xs-3 control-label">Title</label>
+                                <div class="col-xs-9">
+                                    <input type="text" class="form-control" id="settingsTitleInput" placeholder="{Map Name}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="settingsSubTitleInput" class="col-xs-3 control-label">SubTitle</label>
+                                <div class="col-xs-9">
+                                    <input type="text" class="form-control" id="settingsSubTitleInput" placeholder="{Subtitle - Call to action}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-9 col-xs-offset-3">
+                                    <button id="titleButton" type="button" class="btn btn-primary btn-block">Apply</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tab - Map -->
+                        <div role="tabpanel" class="tab-pane" id="map">
+                            <div class="calcite-form-title">2. Set the location, basemap and layer</div>
+                            <div class="form-horizontal calcite-form-padding">
+                                <div class="form-group">
+                                    <label for="settingsSearch" class="col-xs-3 control-label">Location</label>
+                                    <div class="col-xs-9">
+                                        <div id="settingsSearchDiv" class="calcite-form-search"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="settingsSelectBasemap" class="col-xs-3 control-label">خرائط الاساس</label>
+                                    <div class="col-xs-9">
+                                        <select id="settingsSelectBasemap" class="form-control">
+                                            <option value="streets" data-vector="streets-vector">الطرق</option>
+                                            <option value="satellite" data-vector="satellite">صورة جوية</option>
+                                            <option value="hybrid" data-vector="hybrid">صورة جوية مع العناوين</option>
+                                            <option value="topo" data-vector="topo-vector">خريطه المرتفعات</option>
+                                            <option value="dark-gray" data-vector="dark-gray-vector">خرائط ليلية</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="settingsView" class="col-xs-3 control-label">View</label>
+                                    <div class="col-xs-9">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="settings2dView" checked> 2D
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="settings3dView" checked> 3D
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="settingsAddLayer" class="col-xs-3 control-label">Webmap</label>
+                                    <div class="col-xs-9">
+                                        <input type="text" class="form-control" id="settingsWebmapId" placeholder="df5b4bad631d4209b6ef7a88493dac7d">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-9 col-xs-offset-3">
+                                        <button id="settingsAddWebmap" type="button" class="btn btn-primary btn-block">Add Webmap</button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-9 col-xs-offset-3">
+                                        <button id="settingsClearWebmap" type="button" class="btn btn-primary btn-block">Clear</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Tab - Theme -->
+                        <div role="tabpanel" class="tab-pane" id="theme">
+                            <div class="calcite-form-title">3. Set background and text color</div>
+                            <div class="form-horizontal calcite-form-padding">
+
+                                <!-- Color -->
+                                <div class="form-group">
+                                    <label for="settingsColor" class="col-xs-4 control-label">Color</label>
+                                    <div class="col-xs-8">
+                                        <select id="settingsColor" class="form-control">
+                                            <option value="theme">Calcite Themes</option>
+                                            <option value="calcite">Calcite Colors</option>
+                                            <option value="custom">More Colors...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- Color Picker - Collapse -->
+                                <div id="colorThemeCollapse" class="form-group collapse in">
+                                    <div class="col-xs-offset-4 col-xs-8">
+                                        <div class="row">
+                                            <div class="form-box">
+                                                <div class="col-xs-12">
+                                                    <div class="btn btn-color-close pull-right" role="button" data-target="#colorThemeCollapse" data-toggle="collapse" aria-label="Left Align">
+                                                        <span class="esri-icon esri-icon-close" aria-hidden="true"></span>
+                                                    </div>
+                                                    <select id="settingsThemeColor" class="form-control">
+                                                        <option value="light">Light</option>
+                                                        <option value="dark" selected>Dark</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Color Picker - Collapse -->
+                                <div id="colorCalciteCollapse" class="form-group collapse">
+                                    <div class="col-xs-offset-4 col-xs-8">
+                                        <div class="row">
+                                            <div class="form-box">
+                                                <div class="col-xs-12">
+                                                    <div class="btn btn-color-close pull-right" role="button" data-target="#colorCalciteCollapse" data-toggle="collapse" aria-label="Left Align">
+                                                        <span class="esri-icon esri-icon-close" aria-hidden="true"></span>
+                                                    </div>
+                                                    <select id="settingsCalciteColor" class="form-control control-padding-top">
+                                                        <option value="calcite-bgcolor-white" data-textcolor="calcite-text-dark">--- White ---</option>
+                                                        <option value="calcite-bgcolor-transparent" data-textcolor="calcite-text-dark">Transparent</option>
+                                                        <option value="calcite-bgcolor-white" data-textcolor="calcite-text-dark">Calcite White</option>
+                                                        <option value="calcite-bgcolor-white-75" data-textcolor="calcite-text-dark">Calcite White 75%</option>
+                                                        <option value="calcite-bgcolor-white-50" data-textcolor="calcite-text-dark">Calcite White 50%</option>
+                                                        <option value="calcite-bgcolor-white-25" data-textcolor="calcite-text-dark">Calcite White 25%</option>
+                                                        <option value="calcite-bgcolor-off-white" data-textcolor="calcite-text-dark">Calcite Off White</option>
+                                                        <option value="calcite-bgcolor-grey" data-textcolor="calcite-text-light">--- Grey ---</option>
+                                                        <option value="calcite-bgcolor-lightest-grey" data-textcolor="calcite-text-dark">Calcite Lightest Grey</option>
+                                                        <option value="calcite-bgcolor-lighter-grey" data-textcolor="calcite-text-dark">Calcite Lighter Grey</option>
+                                                        <option value="calcite-bgcolor-light-grey" data-textcolor="calcite-text-dark">Calcite Light Grey</option>
+                                                        <option value="calcite-bgcolor-grey" data-textcolor="calcite-text-light">Calcite Grey</option>
+                                                        <option value="calcite-bgcolor-grey-75" data-textcolor="calcite-text-light">Calcite Grey 75%</option>
+                                                        <option value="calcite-bgcolor-grey-50" data-textcolor="calcite-text-dark">Calcite Grey 50%</option>
+                                                        <option value="calcite-bgcolor-grey-25" data-textcolor="calcite-text-dark">Calcite Grey 25%</option>
+                                                        <option value="calcite-bgcolor-dark-grey" data-textcolor="calcite-text-light">Calcite Dark Grey</option>
+                                                        <option value="calcite-bgcolor-darker-grey" data-textcolor="calcite-text-light">Calcite Darker Grey</option>
+                                                        <option value="calcite-bgcolor-darkest-grey" data-textcolor="calcite-text-light">Calcite Darkest Grey</option>
+                                                        <option value="calcite-bgcolor-black" data-textcolor="calcite-text-light">--- Black ---</option>
+                                                        <option value="calcite-bgcolor-true-black" data-textcolor="calcite-text-light">Calcite True Black</option>
+                                                        <option value="calcite-bgcolor-off-black" data-textcolor="calcite-text-light">Calcite Off Black</option>
+                                                        <option value="calcite-bgcolor-black" data-textcolor="calcite-text-light">Calcite Black</option>
+                                                        <option value="calcite-bgcolor-black-75" data-textcolor="calcite-text-light">Calcite Black 75%</option>
+                                                        <option value="calcite-bgcolor-black-50" data-textcolor="calcite-text-light">Calcite Black 50%</option>
+                                                        <option value="calcite-bgcolor-black-25" data-textcolor="calcite-text-light">Calcite Black 25%</option>
+                                                        <option value="calcite-bgcolor-dark-blue" data-textcolor="calcite-text-light">--- Blue ---</option>
+                                                        <option value="calcite-bgcolor-dark-blue" data-textcolor="calcite-text-light">Calcite Dark Blue</option>
+                                                        <option value="calcite-bgcolor-blue" data-textcolor="calcite-text-light">Calcite Blue</option>
+                                                        <option value="calcite-bgcolor-blue-75" data-textcolor="calcite-text-light">Calcite Blue 75%</option>
+                                                        <option value="calcite-bgcolor-blue-50" data-textcolor="calcite-text-light">Calcite Blue 50%</option>
+                                                        <option value="calcite-bgcolor-blue-25" data-textcolor="calcite-text-dark">Calcite Blue 25%</option>
+                                                        <option value="calcite-bgcolor-light-blue" data-textcolor="calcite-text-dark">Calcite Light Blue</option>
+                                                        <option value="calcite-bgcolor-dark-green" data-textcolor="calcite-text-light">--- Green ---</option>
+                                                        <option value="calcite-bgcolor-dark-green" data-textcolor="calcite-text-light">Calcite Dark Green</option>
+                                                        <option value="calcite-bgcolor-green" data-textcolor="calcite-text-light">Calcite Green</option>
+                                                        <option value="calcite-bgcolor-green-75" data-textcolor="calcite-text-light">Calcite Green 75%</option>
+                                                        <option value="calcite-bgcolor-green-50" data-textcolor="calcite-text-light">Calcite Green 50%</option>
+                                                        <option value="calcite-bgcolor-green-25" data-textcolor="calcite-text-dark">Calcite Green 25%</option>
+                                                        <option value="calcite-bgcolor-light-green" data-textcolor="calcite-text-dark">Calcite Light Green</option>
+                                                        <option value="calcite-bgcolor-red" data-textcolor="calcite-text-light">--- Red ---</option>
+                                                        <option value="calcite-bgcolor-dark-red" data-textcolor="calcite-text-light">Calcite Dark Red</option>
+                                                        <option value="calcite-bgcolor-red" data-textcolor="calcite-text-light">Calcite Red</option>
+                                                        <option value="calcite-bgcolor-red-75" data-textcolor="calcite-text-light">Calcite Red 75%</option>
+                                                        <option value="calcite-bgcolor-red-50" data-textcolor="calcite-text-light">Calcite Red 50%</option>
+                                                        <option value="calcite-bgcolor-red-25" data-textcolor="calcite-text-dark">Calcite Red 25%</option>
+                                                        <option value="calcite-bgcolor-light-red" data-textcolor="calcite-text-dark">Calcite Light Red</option>
+                                                        <option value="calcite-bgcolor-orange" data-textcolor="calcite-text-light">--- Orange ---</option>
+                                                        <option value="calcite-bgcolor-dark-orange" data-textcolor="calcite-text-light">Calcite Dark Orange</option>
+                                                        <option value="calcite-bgcolor-orange" data-textcolor="calcite-text-light">Calcite Orange</option>
+                                                        <option value="calcite-bgcolor-orange-75" data-textcolor="calcite-text-light">Calcite Orange 75%</option>
+                                                        <option value="calcite-bgcolor-orange-50" data-textcolor="calcite-text-light">Calcite Orange 50%</option>
+                                                        <option value="calcite-bgcolor-orange-25" data-textcolor="calcite-text-dark">Calcite Orange 25%</option>
+                                                        <option value="calcite-bgcolor-light-orange" data-textcolor="calcite-text-dark">Calcite Light Orange</option>
+                                                        <option value="calcite-bgcolor-yellow" data-textcolor="calcite-text-dark">--- Yellow ---</option>
+                                                        <option value="calcite-bgcolor-dark-yellow" data-textcolor="calcite-text-dark">Calcite Dark Yellow</option>
+                                                        <option value="calcite-bgcolor-yellow" data-textcolor="calcite-text-dark">Calcite Yellow</option>
+                                                        <option value="calcite-bgcolor-yellow-75" data-textcolor="calcite-text-dark">Calcite Yellow 75%</option>
+                                                        <option value="calcite-bgcolor-yellow-50" data-textcolor="calcite-text-dark">Calcite Yellow 50%</option>
+                                                        <option value="calcite-bgcolor-yellow-25" data-textcolor="calcite-text-dark">Calcite Yellow 25%</option>
+                                                        <option value="calcite-bgcolor-light-yellow" data-textcolor="calcite-text-dark">Calcite Light Yellow</option>
+                                                        <option value="calcite-bgcolor-purple" data-textcolor="calcite-text-light">--- Purple ---</option>
+                                                        <option value="calcite-bgcolor-dark-purple" data-textcolor="calcite-text-light">Calcite Dark Purple</option>
+                                                        <option value="calcite-bgcolor-purple" data-textcolor="calcite-text-light">Calcite Purple</option>
+                                                        <option value="calcite-bgcolor-purple-75" data-textcolor="calcite-text-dark">Calcite Purple 75%</option>
+                                                        <option value="calcite-bgcolor-purple-50" data-textcolor="calcite-text-dark">Calcite Purple 50%</option>
+                                                        <option value="calcite-bgcolor-purple-25" data-textcolor="calcite-text-dark">Calcite Purple 25%</option>
+                                                        <option value="calcite-bgcolor-light-purple" data-textcolor="calcite-text-dark">Calcite Light Purple</option>
+                                                        <option value="calcite-bgcolor-brown" data-textcolor="calcite-text-light">--- Brown ---</option>
+                                                        <option value="calcite-bgcolor-dark-brown" data-textcolor="calcite-text-light">Calcite Dark Brown</option>
+                                                        <option value="calcite-bgcolor-brown" data-textcolor="calcite-text-light">Calcite Brown</option>
+                                                        <option value="calcite-bgcolor-brown-75" data-textcolor="calcite-text-light">Calcite Brown 75%</option>
+                                                        <option value="calcite-bgcolor-brown-50" data-textcolor="calcite-text-dark">Calcite Brown 50%</option>
+                                                        <option value="calcite-bgcolor-brown-25" data-textcolor="calcite-text-dark">Calcite Brown 25%</option>
+                                                        <option value="calcite-bgcolor-light-brown" data-textcolor="calcite-text-dark">Calcite Light Brown</option>
+                                                    </select>
+                                                    <label class="checkbox-inline control-padding-top">
+                                                        <input type="checkbox" id="settingsCalciteColorAll"> Apply to all
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Color Picker - Collapse -->
+                                <div id="colorPickerCollapse" class="form-group collapse">
+                                    <div class="col-xs-offset-4 col-xs-8">
+                                        <div class="row">
+                                            <div class="form-box">
+                                                <div class="col-xs-12">
+                                                    <div id="colorPickerToggle" role="button" class="btn btn-color-close margin-top-neg pull-right" data-target="#colorPickerCollapse" data-toggle="collapse" aria-label="Left Align">
+                                                        <span class="esri-icon esri-icon-close" aria-hidden="true"></span>
+                                                    </div>
+                                                    <div id="colorPickerDiv"></div>
+                                                    <label class="checkbox-inline control-padding-top">
+                                                        <input type="checkbox" id="settingsPickerColorAll"> Apply to all
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Text Color -->
+                                <div class="form-group">
+                                    <label for="settingsTextColor" class="col-xs-4 control-label">Text</label>
+                                    <div class="col-xs-8">
+                                        <select id="settingsTextColor" class="form-control control-padding-top">
+                                            <option value="calcite-text-dark">Dark Text</option>
+                                            <option value="calcite-text-light" selected>Light Text</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Widget Theme -->
+
+                                <div class="form-group">
+                                    <label for="settingsWidgets" class="col-xs-4 control-label">Widgets</label>
+                                    <div class="col-xs-8">
+                                        <select id="settingsWidgets" class="form-control">
+                                            <option value="calcite-widgets-light" selected>Calcte Light</option>
+                                            <option value="calcite-widgets-dark">Calcite Dark</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Tab - Layout -->
+                        <div role="tabpanel" class="tab-pane" id="custom">
+                            <div class="calcite-form-title">4. Set the layout and widget position</div>
+                            <div class="form-horizontal calcite-form-padding">
+
+                                <!-- Layout -->
+                                <div class="form-group">
+                                    <label for="settingsLayout" class="col-xs-3 control-label">Layout</label>
+                                    <div class="col-xs-9">
+                                        <select id="settingsLayout" class="form-control">
+                                            <option value="layout-top" selected>Top (Default)</option>
+                                            <option value="layout-top-space">Top Margin</option>
+                                            <option value="layout-top-space-all">Top Margin All</option>
+                                            <option value="layout-top-fixed">Top Above Map</option>
+                                            <option value="layout-bottom">Bottom</option>
+                                            <option value="layout-bottom-space">Bottom Margin</option>
+                                            <option value="layout-bottom-space-all">Bottom Margin All</option>
+                                            <option value="layout-bottom-fixed">Bottom Below Map</option>
+                                            <option value="layout-top">--- Layouts ---</option>
+                                            <option value="calcite-layout-small-title-top">Small Title Top</option>
+                                            <option value="calcite-layout-small-title-bottom">Small Title Bottom</option>
+                                            <option value="calcite-layout-large-title-top">Large Title Top</option>
+                                            <option value="calcite-layout-large-title-bottom">Large Title Bottom</option>
+                                            <option value="calcite-layout-inline-left">Inline Zoom Left</option>
+                                            <option value="calcite-layout-inline-right">Inline Zoom Right</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- Map Widgets -->
+                                <div class="form-group">
+                                    <label for="settingsMap" class="col-xs-3 control-label">Map</label>
+                                    <div class="col-xs-4">
+                                        <select id="settingsMapWidget" class="form-control">
+                                            <option value="zoom" selected>Zoom</option>
+                                            <option value="home">Home</option>
+                                            <option value="locate">Locate</option>
+                                            <option value="compass">Compass</option>
+                                            <option value="legend">Legend</option>
+                                            <option value="layerlist">LayerList</option>
+                                            <option value="track">Track</option>
+                                            <option value="basemaptoggle">Basemaptoggle</option>
+                                            <option value="search">Search</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-5">
+                                        <select id="settingsPositionMapWidget" class="form-control">
+                                            <option value="top-left" selected>TopLeft</option>
+                                            <option value="top-right">TopRight</option>
+                                            <option value="bottom-right">BottomRight</option>
+                                            <option value="bottom-left">BottomLeft</option>
+                                            <option value="none">-- Delete --</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- Scene Widgets -->
+                                <div class="form-group">
+                                    <label for="settingsScene" class="col-xs-3 control-label">Scene</label>
+                                    <div class="col-xs-4">
+                                        <select id="settingsSceneWidget" class="form-control">
+                                            <option value="zoom" selected>Zoom</option>
+                                            <option value="navtoggle">Nav Toggle</option>
+                                            <option value="home">Home</option>
+                                            <option value="locate">Locate</option>
+                                            <option value="compass">Compass</option>
+                                            <option value="legend">Legend</option>
+                                            <option value="layerlist">LayerList</option>
+                                            <option value="track">Track</option>
+                                            <option value="basemaptoggle">Basemaptoggle</option>
+                                            <option value="search">Search</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-5">
+                                        <select id="settingsPositionSceneWidget" class="form-control">
+                                            <option value="top-left" selected>TopLeft</option>
+                                            <option value="top-right">TopRight</option>
+                                            <option value="bottom-right">BottomRight</option>
+                                            <option value="bottom-left">BottomLeft</option>
+                                            <option value="none">-- Delete --</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Popup Docking -->
+                                <div class="form-group">
+                                    <label for="settingsPopup" class="col-xs-3 control-label">Popup</label>
+                                    <div class="col-xs-9">
+                                        <select id="settingsPopup" class="form-control">
+                                            <option value="auto" selected>Auto</option>
+                                            <option value="top-left">Top Left</option>
+                                            <option value="top-center">Top Center</option>
+                                            <option value="top-right">Top Right</option>
+                                            <option value="bottom-right">Bottom Right</option>
+                                            <option value="bottom-center">Bottom Center</option>
+                                            <option value="bottom-left">Bottom Left</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- Padding (map and scene) -->
+                                <div class="form-group">
+                                    <label for="settingsPopup" class="col-xs-3 control-label">Padding</label>
+                                    <div class="col-xs-9">
+                                        <input id="settingsPadding" class="form-control" value="{top: 50 , bottom: 0, right: 0, left: 0}">
+                                    </div>
+                                </div>
+                                <!-- Panel (left/right) -->
+                                <div class="form-group">
+                                    <label for="settingsPanel" class="col-xs-3 control-label">Panel</label>
+                                    <div class="col-xs-9">
+                                        <select id="settingsPanel" class="form-control">
+                                            <option value="calcite-panels-left">Left</option>
+                                            <option value="calcite-panels-right" selected>Right</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- Menu style -->
+                                <div class="form-group">
+                                    <label for="settingsMenu" class="col-xs-3 control-label">Menu</label>
+                                    <div class="col-xs-9">
+                                        <select id="settingsMenu" class="form-control">
+                                            <option value="" selected>Dropdown</option>
+                                            <option value="calcite-menu-drawer">Drawer</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.tab-content -->
+                </div><!-- /.panel-body -->
+            </div><!-- /.panel-collapse -->
+        </div><!-- /.panel -->-->
+    </div> <!-- /.calcite-panels group-->
+
+    <script type="text/javascript">
+        var dojoConfig = {
+            has: {
+                "esri-promise-compatibility-deprecation-warnings": 0 // TODO
+            },
+            packages: [{
+                name: "bootstrap",
+                location: location.pathname.replace(/\/[^/]+$/, "") + "/dist/vendor/dojo-bootstrap"
+            },
+            {
+                name: "calcite-maps",
+                location: location.pathname.replace(/\/[^/]+$/, "") + "/dist/js/dojo"
+                //location: location.pathname.replace(/\/[^/]+$/, "") + "./../../lib/js/dojo"
+            },
+            {
+                name: "calcite-settings",
+                location: location.pathname.replace(/\/[^/]+$/, "") + "/js"
+            }
+                ,
+            {
+                name: "Hajj_Lib",
+                location: location.pathname.replace(/\/[^/]+$/, "") + "/lib/js/Business"
+            }]
+        };
+    </script>
+    <!-- ArcGIS JS 4.x -->
+    <script src="https://js.arcgis.com/4.7/"></script>
+    <script>
+        if (true) {
+            $(document).ready(function () {
+                $('#modalSplash').show();
+            });
+        }
+        var app;
+
+        require([
+            // ArcGIS
+
+            "esri/Map",
+            "esri/Basemap",
+            "esri/WebMap",
+            "esri/layers/VectorTileLayer",
+            "esri/views/MapView",
+            "esri/views/SceneView",
+            "esri/widgets/Search",
+            "esri/widgets/Popup",
+            "esri/widgets/Home",
+            "esri/widgets/Legend",
+            "esri/widgets/ColorPicker",
+            "esri/core/watchUtils",
+            "dojo/query",
+            "dojo/dom-class",
+            "dojo/dom",
+            "dojo/on",
+            "esri/layers/MapImageLayer",
+            "esri/layers/FeatureLayer",
+            // Calcite Maps
+            "calcite-maps/calcitemaps-v0.6",
+            "calcite-maps/calcitemaps-arcgis-support-v0.6",
+            //"calcite-maps/calcitemaps",
+            "calcite-settings/panelsettings",
+            "esri/PopupTemplate",
+            "esri/tasks/QueryTask",
+            "esri/tasks/support/Query",
+            "dojo/_base/array",
+            "esri/geometry/Point",
+            "esri/symbols/SimpleMarkerSymbol",
+            "esri/Graphic",
+            "esri/symbols/SimpleLineSymbol",
+            "esri/widgets/Legend",
+            "esri/widgets/Track",
+            // Boostrap
+            "bootstrap/Collapse",
+            "bootstrap/Dropdown",
+            "bootstrap/Tab",
+            "bootstrap/Carousel",
+            "bootstrap/Tooltip",
+            "bootstrap/Modal",
+
+            // Dojo
+            "dojo/domReady!"
+        ], function (Map, Basemap, Webmap, VectorTileLayer, MapView, SceneView, Search, Popup, Home, Legend, ColorPicker,
+            watchUtils, query, domClass, dom, on, MapImageLayer, FeatureLayer, CalciteMapsSettings, CalciteMapsArcGISSupport, PanelSettings, PopupTemplate, QueryTask, Query, Array, Point, SimpleMarkerSymbol, Graphic, SimpleLineSymbol, Legend, Track) {
+                app = {
+                    scale: 250000,
+                    lonlat: [39.879261, 21.388608],
+                    MapFeatureLayer: null,
+                    mapView: null,
+                    mapDiv: "mapViewDiv",
+                    mapFL: null,
+                    MapLayerURL: "http://18.191.44.107:6080/arcgis/rest/services/hakathon2/MapServer",
+                    vectorLayer: null,
+                    sceneView: null,
+                    sceneDiv: "sceneViewDiv",
+                    sceneFL: null,
+                    activeView: null,
+                    searchWidgetNav: null,
+                    searchWidgetPanel: null,
+                    searchWidgetSettings: null,
+                    basemapSelected: "hybrid",
+                    basemapSelectedAlt: "gray",
+                    map: null,
+                    //webmapId: "df5b4bad631d4209b6ef7a88493dac7d",
+                    padding: {
+                        top: 50,
+                        right: 0,
+                        bottom: 0,
+                        left: 0
+                    },
+                    uiPadding: {
+                        components: ["zoom", "attribution"],
+                        padding: {
+                            top: 15,
+                            right: 15,
+                            bottom: 30,
+                            left: 15
+                        }
+                    },
+                    popupOptions: {
+                        autoPanEnabled: true,
+                        messageEnabled: false,
+                        spinnerEnabled: false,
+                        dockEnabled: true,
+                        dockOptions: {
+                            buttonEnabled: true,
+                            //breakpoint: 544 // default
+                        }
+                    },
+                    colorPickerWidget: null,
+                    panelSettings: null,
+                    HajjObj: null
+                }
+
+                //----------------------------------
+                // App
+                //----------------------------------
+
+                //app.panelSettings = new PanelSettings( { app: app } );
+                //app.HajjObj = new hajjLib(this);
+
+                initializeMapViews();
+                initializeAppUI();
+                initializeAppSettings();
+                initializeWidgets();
+
+
+                //----------------------------------
+                // Map and Scene View
+                //----------------------------------
+
+                function initializeMapViews() {
+                    // Webmap
+                    //app.webmap = new Webmap({
+                    //    portalItem: {
+                    //        id: app.webmapId
+                    //    }
+                    //});
+                    // 2D - MapView
+                    app.map = new Map({ basemap: app.basemapSelected, ground: "world-elevation", constraints: { snapToZoom: false } });
+
+
+
+
+                    app.mapView = new MapView({
+                        container: app.mapDiv,
+                        map: app.map,
+                        scale: app.scale,
+                        center: app.lonlat,
+                        padding: app.padding,
+                        ui: app.uiPadding,
+                        popup: new Popup(app.popupOptions),
+                        visible: true
+                    });
+                    // Set active view
+                    app.activeView = app.mapView;
+                    // 3D - SceneView
+                    app.sceneView = new SceneView({
+                        container: app.sceneDiv,
+                        map: app.map,
+                        zoom: app.zoom,
+                        center: app.lonlat,
+                        padding: app.padding,
+                        ui: app.uiPadding,
+                        popup: new Popup(app.popupOptions),
+                        visible: false
+                    });
+
+                    // Listen for view breakpoint changes and update control location
+                    app.mapView.watch("widthBreakpoint", function (newVal, oldVal) {
+                        function setPadding(newVal, oldVal) {
+                            if (!app.panelSettings) {
+                                return;
+                            }
+                            if (newVal === "small" && oldVal === "medium") {
+                                app.panelSettings.setPadding(app.panelSettings.activeLayout.viewPaddingSmallScreen, app.panelSettings.activeLayout.uiPadding);
+                            } else if (newVal === "medium" && oldVal === "small") {
+                                app.panelSettings.setPadding(app.panelSettings.activeLayout.viewPadding, app.panelSettings.activeLayout.uiPadding);
+                            }
+                        }
+                        // Set padding for navs that change height
+                        if (app.panelSettings.activeLayout.viewPaddingSmallScreen) {
+                            setPadding(newVal, oldVal);
+                        }
+                    });
+                }
+
+                //----------------------------------
+                // View widgets
+                //----------------------------------
+
+                function initializeWidgets() {
+                    app.mapView.when(function () {
+                        app.panelSettings.setWidgetPosition(app.mapView, "home", "top-left", 0);
+                        //app.panelSettings.setWidgetPosition(app.mapView, "zoom", "top-left", 1);
+                        app.panelSettings.setWidgetPosition(app.mapView, "compass", "top-left");
+                    });
+
+                    app.sceneView.when(function () {
+                        app.panelSettings.setWidgetPosition(app.sceneView, "home", "top-left", 0);
+                        //app.panelSettings.setWidgetPosition(app.sceneView, "zoom", "top-left");
+                        app.panelSettings.setWidgetPosition(app.sceneView, "compass", "top-left");
+                        app.panelSettings.setWidgetPosition(app.sceneView, "navtoggle", "top-left");
+                    });
+
+                    // Panel widgets
+                    app.panelSettings.setWidgetPosition(app.mapView, "legend", "top-left", 0, "legendDiv");
+                    app.panelSettings.setWidgetPosition(app.mapView, "layerlist", "top-left", 0, "layerlistDiv");
+                    app.panelSettings.setWidgetPosition(app.mapView, "print", "top-left", 0, "printDiv");
+
+                }
+
+                //----------------------------------
+                // App panel settings
+                //----------------------------------
+
+                function initializeAppSettings() {
+                    // Panel settings
+                    app.panelSettings = new PanelSettings({ app: app });
+                    app.panelSettings.activeLayout = app.panelSettings.APP_LAYOUTS.TOP;
+                    app.panelSettings.setLayout(app.panelSettings.activeLayout, false);
+
+                    // Set padding for navs that change height
+                    if (window.innerWidth < app.activeView.breakpoints.small && app.panelSettings.activeLayout.viewPaddingSmallScreen) {
+                        app.panelSettings.setPadding(app.panelSettings.activeLayout.viewPaddingSmallScreen, app.panelSettings.activeLayout.uiPadding);
+                    }
+                }
+
+                //----------------------------------
+                // App UI Handlers
+                //----------------------------------
+
+                function initializeAppUI() {
+                    // App UI
+                    setTabEvents();
+                    setBasemapEvents();
+                    setSearchWidgets();
+                    setColorPicker();
+                    CalciteMapsArcGISSupport.setPopupPanelSync(app.mapView);
+                    CalciteMapsArcGISSupport.setPopupPanelSync(app.sceneView);
+                    CalciteMapsArcGISSupport.setSearchExpandEvents(app.searchWidgetNav);
+
+                }
+
+                //----------------------------------
+                // View Tabs
+                //----------------------------------
+
+                function setTabEvents() {
+
+                    // Tab event
+                    query(".calcite-navbar li a[data-toggle='tab']").on("show.bs.tab", function (e) {
+                        // Views
+                        if (e.target.text.indexOf("Map") > -1) {
+                            syncViews(app.sceneView, app.mapView);
+                            app.activeView = app.mapView;
+                        } else {
+                            syncViews(app.mapView, app.sceneView);
+                            app.activeView = app.sceneView;
+                        }
+                        // Search
+                        syncSearch();
+                        // Hide popup - TODO
+                        app.activeView.popup.set({
+                            visible: false
+                        });
+                    });
+
+                    // Views
+                    function syncViews(fromView, toView) {
+                        watchUtils.whenTrueOnce(fromView, "ready", function () {
+                            var viewPt = fromView.viewpoint.clone();
+                            fromView.container = null;
+                            if (fromView.type === "3d") {
+                                toView.container = app.mapDiv;
+                            } else {
+                                toView.container = app.sceneDiv;
+                            }
+                            toView.viewpoint = viewPt;
+                            toView.padding = fromView.padding;
+                        });
+                    }
+
+                    // Search
+                    function syncSearch() {
+                        app.searchWidgetNav.view = app.activeView;
+                        app.searchWidgetPanel.view = app.activeView;
+                        app.searchWidgetSettings.view = app.activeView;
+                        // Sync
+                        if (app.searchWidgetNav.selectedResult) {
+                            app.searchWidgetNav.search(app.searchWidgetNav.selectedResult.name);
+                        }
+                        if (app.searchWidgetPanel.selectedResult) {
+                            app.searchWidgetPanel.search(app.searchWidgetPanel.selectedResult.name);
+                        }
+                    }
+                }
+
+                //----------------------------------
+                // Basemaps
+                //----------------------------------
+
+                function setBasemapEvents() {
+
+                    // Sync basemaps for map and scene
+                    query("#selectBasemapPanel, #settingsSelectBasemap").on("change", function (e) {
+                        app.basemapSelected = e.target.options[e.target.selectedIndex].dataset.vector;
+                        app.basemapSelectedAlt = e.target.value;
+                        setBasemaps();
+                    });
+
+                    function setBasemaps() {
+                        app.mapView.map.basemap = app.basemapSelected;
+                        app.sceneView.map.basemap = app.basemapSelectedAlt;
+                    }
+                }
+
+                //----------------------------------
+                // Search Widgets
+                //----------------------------------
+
+                function setSearchWidgets() {
+
+                    //TODO - Search Nav + Panel (detach/attach)
+                    app.searchWidgetNav = createSearchWidget("searchNavDiv", true);
+                    app.searchWidgetPanel = createSearchWidget("searchPanelDiv", true);
+                    app.searchWidgetSettings = createSearchWidget("settingsSearchDiv", false);
+
+                    // Create widget
+                    function createSearchWidget(parentId, showPopup) {
+                        var search = new Search({
+                            viewModel: {
+                                view: app.activeView,
+                                showPopupOnSelect: showPopup,
+                                highlightEnabled: false,
+                                maxSuggestions: 4
+                            },
+                        }, parentId);
+                        return search;
+                    }
+                }
+
+                //----------------------------------
+                // Colorpicker Widget
+                //----------------------------------
+
+                function setColorPicker() {
+                    app.colorPickerWidget = new ColorPicker({
+                        required: false,
+                        showRecentColors: false,
+                        showTransparencySlider: false
+                    }, "colorPickerDiv");
+                }
+
+                //-------------legend---------------------
+           var lengend= new Legend({
+                container: "legendDiv",
+                view: app.activeView
+
+
+            });
+            var track = new Track({
+
+                view: app.activeView
+
+            });
+            app.activeView.ui.add(track, "top-left");
+                // Toggle nav
+                //----------------------------------
+                // query("#calciteToggleNavbar").on("click", function(e) {
+                //   var padding;
+                //   if (query(".calcite-nav-hidden").length > 0) { // hidden
+                //     //app.panelSettings.setLayout(app.panelSettings.activeLayout, true);
+                //     //query(".calcite-panels .panel.in").collapse("hide");
+                //   } else {
+                //     //app.panelSettings.setLayout(app.panelSettings.activeLayout, false);
+                //   }
+                //   query(".calcite-dropdown").removeClass("open");
+                //   query(".calcite-dropdown-toggle").removeClass("open");
+                // });
+
+                //----------------------------------
+                // Manual show/hide menu dropdown (slide)
+                //----------------------------------
+
+                // query(".dropdown-toggle").on('click', function (e) {
+                //   // Show dropdown nav
+                //   query(this).parent().toggleClass("open");
+                //   // Menu animcation
+                //   query(".calcite-dropdown-toggle").toggleClass("open");
+                // });
+
+                //-----------functions-----------
+                function CreatHajjFeatureLayer() {
+                    var lyr = new FeatureLayer({
+                        url: app.MapLayerURL + "/0",
+                        maxScale: 0,
+                        minScale: 0,
+                        outFields: ["*"]
+                    });
+                    lyr.when(function (e) {
+                        lyr.set({
+                            popupTemplate: new PopupTemplate({
+                                content: [
+
+                                    {
+                                        type: "fields",
+                                        fieldInfos: [
+                                            {
+                                                fieldName: "Location_Order",
+                                                visible: true,
+                                                label: "الترتيب:"
+
+                                            }
+                                            ,
+                                            {
+                                                fieldName: "Name",
+                                                visible: true,
+                                                label: "الاسم:"
+                                            },
+                                            {
+                                                fieldName: "hakathon.DBO.Locations.Area",
+                                                visible: true,
+                                                label: "المنطقة:"
+                                            },
+                                            {
+                                                fieldName: "Start_date",
+                                                visible: true,
+                                                label: "تاريخ الدخول:"
+                                            }
+
+                                            ,
+                                            {
+                                                fieldName: "End_Date",
+                                                visible: true,
+                                                label: "تاريخ الخروج :"
+                                            }
+                                            ,
+                                            {
+                                                fieldName: "End_Time",
+                                                visible: true,
+                                                label: "وقت الخروج:"
+                                            }
+                                            ,
+                                            {
+                                                fieldName: "days",
+                                                visible: true,
+                                                label: "عدد ايام المكوث:"
+                                            },
+                                            {
+                                                fieldName: "Note",
+                                                visible: true,
+                                                label: "ملاحظات:"
+                                            },
+
+
+                                        ]
+                                    }],
+                                title: "مسار الحملة",
+
+                                actions: [{
+                                    title: "نسخ رابط الموقع",
+                                    id: "CopyWhiteLand",
+                                    className: "esri-icon-link"
+                                },
+                                {
+                                    title: "جووجل",
+                                    id: "MOHgoogle",
+                                    className: "esri-icon-applications"
+                                },
+                                {
+                                    title: "مسار الوصول للموقع",
+                                    id: "MOHgoogleRout",
+                                    className: "esri-icon-navigation"
+                                }]
+                            })
+                        });
+                    })
+                    return lyr;
+                }
+                function CreateMapLayer() {
+                    var layer = new MapImageLayer({
+                        url: app.MapLayerURL
+                        //,
+                        //sublayers: [
+                        //    {
+                        //        id: 3,
+                        //        visible: false,
+                        //        title: "طبقة الاحياءالامانات"
+
+                        //    }, {
+                        //        id: 2,
+                        //        visible: true,
+                        //        title: "طبقة الامانات"
+
+                        //    }, {
+                        //        id: 1,
+                        //        visible: true,
+                        //        title: "طبقة حدود المواقع"
+
+                        //    }, {
+                        //        id: 0,
+                        //        visible: false,
+                        //        title: "طبقة المواقع"
+
+                        //    }
+                        //]
+                    });
+                    return layer;
+                }
+                function ZoonToLocation(order) {
+                    var Url = app.MapLayerURL + "/0";
+
+                    var queryTask = new QueryTask(Url);
+                    var query = new Query();
+                    query.returnGeometry = true;
+                    query.outFields = ['*'];
+                    query.where = "Location_Order ='" + order + "'";
+
+                    queryTask.execute(query).then(function (featureSet) {
+                        var items = Array.map(featureSet.features, function (feature) {
+                            if (feature.geometry != null) {
+                                // select the region.
+
+
+                                var gra = feature;
+
+
+                                app.sceneView.goTo({
+                                    target: feature.geometry,
+                                    zoom: 17,
+                                    tilt: 45
+                                }, {
+                                        animate: true,
+                                        duration: 500
+
+                                    });
+                                app.mapView.goTo({
+                                    target: feature.geometry,
+                                    zoom: 17,
+                                    tilt: 45
+                                }, {
+                                        animate: true,
+                                        duration: 500
+
+                                    });
+
+                            }
+                        });
+                    });
+                }
+                function ZoonToLPoint(lat, lng, Att) {
+
+                    var pt = new Point({
+                        latitude: lat,
+                        longitude: lng
+                    });
+                    var symbol = {
+                        type: "simple-marker",  // autocasts as new SimpleMarkerSymbol()
+                        style: "circle",
+                        color: "blue",
+                        size: "10px",  // pixels
+                        outline: {  // autocasts as new SimpleLineSymbol()
+                            color: [255, 255, 0],
+                            width: 3  // points
+                        }
+                    };
+
+                    app.sceneView.goTo({
+                        target: pt,
+                        zoom: 17,
+                        tilt: 45
+                    }, {
+                            animate: true,
+                            duration: 500
+
+                        });
+                    app.mapView.goTo({
+                        target: pt,
+                        zoom: 17,
+                        tilt: 45
+                    }, {
+                            animate: true,
+                            duration: 500
+
+                        });
+                    var Graph = new Graphic({
+                        geometry: pt,
+                        symbol: symbol,
+                        attributes: Att
+
+
+                    });
+
+                    app.mapView.graphics.add(Graph);
+                    app.sceneView.graphics.add(Graph);
+
+                }
+                function GoogleRout(lat, long) {
+                    window.open("https://www.google.com/maps/dir/?api=1&destination=" + lat + "," + long + "&travelmode=driving");
+
+
+                }
+
+                //----------Events---------------
+                query("#btncampaign").on("click", function (e) {
+
+                    ZoonToLocation(1);
+
+
+                });
+                query("#btnstart").on("click", function (e) {
+
+                    app.MapFeatureLayer = CreatHajjFeatureLayer();
+                    var mapLayer = CreateMapLayer();
+
+
+                    app.map.add(app.MapFeatureLayer);
+                    app.map.add(mapLayer);
+
+                    //query("#panelBookmarks").show();
+
+                    
+              
+                });
+
+                query("#selectcampaign").on("change", function (e) {
+                    var campaignID = dom.byId("selectcampaign").value;
+                    ZoonToLocation(campaignID);
+                });
+
+                app.mapView.popup.on("trigger-action", function (event) {
+                    // If the zoom-out action is clicked, fire the zoomOut() function
+
+                    if (event.action.id === "MOHgoogle") {
+                        window.open("https://www.google.com/maps/?q=" + app.mapView.popup.selectedFeature.geometry.latitude + "," + app.mapView.popup.selectedFeature.geometry.longitude);
+                    }
+                    else if (event.action.id === "MOHgoogleRout") {
+                        window.open("https://www.google.com/maps/dir/?api=1&destination=" + app.mapView.popup.selectedFeature.geometry.latitude + "," + app.mapView.popup.selectedFeature.geometry.longitude + "&travelmode=driving");
+                    }
+                });
+                btnMotouf
+                query("#btnMotouf").on("click", function (e) {
+                    query("#infoPanel").html("<p>شركة المنصور لخدمة الحجاج</p></br><p>جوال:0543225889</p></br><p>العنوان:غير محدد</p></br><p>مواعيد العمل :من 6 صباحا حتى 12 مساء</p>");
+                    ZoonToLPoint(21.416004, 39.818471, null)
+                    query("#btnGo").on("click", function (e) {
+                        GoogleRout(21.416004, 39.818471);
+
+                    });
+                });
+
+                query("#btnHaram").on("click", function (e) {
+                    query("#infoPanel").html("<p>المسجد الحرم</p>");
+                    ZoonToLPoint(21.423874, 39.825245, null)
+                    query("#btnGo").on("click", function (e) {
+                        GoogleRout(21.423874, 39.825245);
+
+                    });
+                });
+
+
+
+                query("#btnGamarat").on("click", function (e) {
+                    query("#infoPanel").html("<p>المسجد الحرم</p>");
+                    ZoonToLPoint(
+                        21.421210, 39.872988, null)
+                    query("#btnGo").on("click", function (e) {
+                        GoogleRout(21.421210, 39.872988);
+
+                    });
+                });
+
+
+
+                query("#btnRailSation").on("click", function (e) {
+                    query("#infoPanel").html("<p> قطار المشاعر-محطة منى 3 جمرات</p>");
+                    ZoonToLPoint(21.418335, 39.870887, null)
+                    query("#btnGo").on("click", function (e) {
+                        GoogleRout(21.418335, 39.870887);
+
+                    });
+                });
+
+                21.436012, 39.901786
+                query("#btnHospital").on("click", function (e) {
+                    query("#infoPanel").html("<p> مجمع الطوارئ بالمعيصم</p>");
+                    ZoonToLPoint(21.436012, 39.901786, null)
+                    query("#btnGo").on("click", function (e) {
+                        GoogleRout(21.436012, 39.901786);
+
+                    });
+                });
+
+            });
+    </script>
+</body>
+</html>
