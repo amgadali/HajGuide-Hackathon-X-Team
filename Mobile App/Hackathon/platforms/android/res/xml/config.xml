@@ -21,7 +21,7 @@
     <splash density="port-ldpi" src="res/screens/android/screen-ldpi-portrait.png" />
     <splash density="port-mdpi" src="res/screens/android/screen-mdpi-portrait.png" />
     <splash density="port-xhdpi" src="res/screens/android/screen-xhdpi-portrait.png" />
-    <name>هاكاثون الحج</name>
+    <name>مرشد الحاج</name>
     <description>A blank project that uses Apache Cordova to help you build an app that targets multiple mobile platforms: Android, iOS, Windows, and Windows Phone.</description>
     <author email="dev@cordova.apache.org" href="http://cordova.io">Apache Cordova Team </author>
     <content src="index.html" />

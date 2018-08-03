@@ -6,9 +6,10 @@
         For details, see http://go.microsoft.com/fwlink/?LinkID=617521
     -->
         <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">-->
-        
+        <meta name="description" content="مرشد الحاج">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
+     
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
         <!-- Bootstrap - For testing only -->
         <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"-->
@@ -111,11 +112,139 @@
                 width: 100%;
                 padding: 2px 4px;
             }
+
+            /*Time Line Css*/
+
+            /* The actual timeline (the vertical ruler) */
+            .timeline {
+                position: relative;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+                /* The actual timeline (the vertical ruler) */
+                .timeline::after {
+                    content: '';
+                    position: absolute;
+                    width: 6px;
+                    top: 0;
+                    bottom: 0;
+                    left: 50%;
+                    margin-left: -3px;
+                }
+
+            /* Container around content */
+            .container {
+                padding: 10px 40px;
+                position: relative;
+                background-color: inherit;
+                width: 50%;
+            }
+
+                /* The circles on the timeline */
+                .container::after {
+                    content: '';
+                    position: absolute;
+                    width: 25px;
+                    height: 25px;
+                    right: -17px;
+                    border: 4px solid #FF9F55;
+                    top: 15px;
+                    border-radius: 50%;
+                    z-index: 1;
+                }
+
+            /* Place the container to the left */
+            .left {
+                left: 0;
+            }
+
+            /* Place the container to the right */
+            .right {
+                left: 50%;
+            }
+
+            /* Add arrows to the left container (pointing right) */
+            .left::before {
+                content: " ";
+                height: 0;
+                position: absolute;
+                top: 22px;
+                width: 0;
+                z-index: 1;
+                right: 30px;
+                border: medium solid white;
+                border-width: 10px 0 10px 10px;
+                border-color: transparent transparent transparent white;
+            }
+
+            /* Add arrows to the right container (pointing left) */
+            .right::before {
+                content: " ";
+                height: 0;
+                position: absolute;
+                top: 22px;
+                width: 0;
+                z-index: 1;
+                left: 30px;
+                border: medium solid white;
+                border-width: 10px 10px 10px 0;
+                border-color: transparent white transparent transparent;
+            }
+
+            /* Fix the circle for containers on the right side */
+            .right::after {
+                left: -16px;
+            }
+
+            /* The actual content */
+            .content {
+                padding: 20px 30px;
+                position: relative;
+                border-radius: 6px;
+            }
+
+            /* Media queries - Responsive timeline on screens less than 600px wide */
+            @media screen and (max-width: 600px) {
+                /* Place the timelime to the left */
+                .timeline::after {
+                    left: 31px;
+                }
+
+                /* Full-width containers */
+                .container {
+                    width: 100%;
+                    padding-left: 70px;
+                    padding-right: 25px;
+                }
+
+                    /* Make sure that all arrows are pointing leftwards */
+                    .container::before {
+                        left: 60px;
+                        border: medium solid white;
+                        border-width: 10px 10px 10px 0;
+                        border-color: transparent white transparent transparent;
+                    }
+
+                /* Make sure all circles are at the same spot */
+                .left::after, .right::after {
+                    left: 15px;
+                }
+
+                /* Make all right containers behave like the left ones */
+                .right {
+                    left: 0%;
+                }
+            }
+
+            .Sammary {
+                width: 100%;
+                text-align: right;
+            }
         </style>
-
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <!--<link rel="stylesheet" type="text/css" href="css/index.css">-->
-        <title>Hackathon</title>
+        <title>مرشد الحاج</title>
     </head>
 <body class="calcite-maps calcite-nav-top">
     <!-- Navbar -->
@@ -133,23 +262,22 @@
                 </div>
             </a>
             <ul class="dropdown-menu">
-                <li><a role="menuitem" tabindex="0" data-target="#modalSplash" data-toggle="modal" aria-haspopup="true"> مرحبا</a></li>
-                <li><a id="Compain" role="menuitem" data-target="#panelCompain" aria-haspopup="true"><span class="esri-icon-radio-checked"> </span> حملتى    </a></li>
-                <li><a role="menuitem" data-target="#mapTab" aria-haspopup="true"> <span class="glyphicon glyphicon-calendar"></span> مواعيد التفويج </a></li>
-                <li><a role="menuitem" data-target="#mapTab" aria-haspopup="true"><span class="esri-icon-organization"></span> شركة الطوافة </a></li>
-                <li><a role="menuitem" data-target="#mapTab" aria-haspopup="true"><span class="esri-icon-polyline"></span> الى الحرم  </a></li>
-                <li><a role="menuitem" data-target="#mapTab" aria-haspopup="true"> <span class="esri-icon-polyline"></span>الى الجمرات </a></li>
-                <li><a role="menuitem" data-target="#mapTab" aria-haspopup="true"> <span class="esri-icon-polyline"></span>الى الفندق </a></li>
-                <li><a role="menuitem" data-target="#mapTab" aria-haspopup="true"> <span class="glyphicon glyphicon-map-marker"></span> أقرب محطة قطار  </a></li>
-                <li><a role="menuitem" data-target="#mapTab" aria-haspopup="true"> <span class="glyphicon glyphicon-map-marker"></span> أقرب مستشفى   </a></li>
-                <li><a role="menuitem" data-target="#mapTab" aria-haspopup="true"> <span class="glyphicon glyphicon-map-marker"></span> أقرب مركز شرطة   </a></li>
-                <li><a role="menuitem" data-target="#mapTab" aria-haspopup="true">  <span class="glyphicon glyphicon-map-marker"></span> أقرب مكتب ارشاد   </a></li>
+                <li><a role="menuitem" tabindex="0" data-target="#modalSplash" data-toggle="modal" aria-haspopup="true"> تغيير المستخدم</a></li>
+                <li><a id="btncampaign" role="menuitem" data-target="#panelcampaign" aria-haspopup="true"><span class="esri-icon-radio-checked"> </span> حملتى    </a></li>
+                <li><a role="menuitem" data-target="#panelTimeLine" aria-haspopup="true"> <span class="glyphicon glyphicon-calendar"></span> مواعيد التفويج </a></li>
+                <li><a id="btnMotouf" role="menuitem" data-target="#panelGo" aria-haspopup="true"><span class="esri-icon-organization"></span> شركة الطوافة </a></li>
+                <li><a id="btnHaram" role="menuitem" data-target="#panelGo" aria-haspopup="true"><span class="esri-icon-polyline"></span> الى الحرم  </a></li>
+                <li><a id="btnGamarat" role="menuitem" data-target="#panelGo" aria-haspopup="true"> <span class="esri-icon-polyline"></span>الى الجمرات </a></li>
+                <!--<li><a id="btnToHotel"  role="menuitem" data-target="#mapTab" aria-haspopup="true"> <span class="esri-icon-polyline"></span>الى الفندق </a></li>-->
+                <li><a id="btnRailSation" role="menuitem" data-target="#mapTab" aria-haspopup="true"> <span class="glyphicon glyphicon-map-marker"></span> أقرب محطة قطار  </a></li>
+                <li><a id="btnHospital" role="menuitem" data-target="#mapTab" aria-haspopup="true"> <span class="glyphicon glyphicon-map-marker"></span> أقرب مستشفى   </a></li>
+                <li><a id="btnPlice" role="menuitem" data-target="#mapTab" aria-haspopup="true"> <span class="glyphicon glyphicon-map-marker"></span> أقرب مركز شرطة   </a></li>
+                <li><a id="btndeen" role="menuitem" data-target="#mapTab" aria-haspopup="true">  <span class="glyphicon glyphicon-map-marker"></span> أقرب مكتب ارشاد   </a></li>
                 <li><a role="menuitem" data-target="#mapTab" aria-haspopup="true"> <span class="glyphicon glyphicon-map-marker"></span> أقرب مسجد   </a></li>
                 <li><a role="menuitem" data-target="#mapTab" aria-haspopup="true"> <span class="glyphicon glyphicon-map-marker"></span> أقرب دورة مياه   </a></li>
 
 
-                <li><a class="hidden-md hidden-lg" href="#mapTab" aria-controls="mapTab" role="tab" data-toggle="tab"> <span class="esri-icon-maps"></span>  خريطة المشاعر  </a></li>
-                <li><a class="hidden-md hidden-lg" href="#sceneTab" aria-controls="sceneTab" role="tab" data-toggle="tab"> <span class="glyphicon glyphicon-globe"></span>  ثلاثية الابعاد</a></li>
+
                 <li><a role="menuitem" tabindex="0" data-target="#panelBasemaps" aria-haspopup="true"><span class="glyphicon glyphicon-th-large"></span> خرائط الاساس</a></li>
                 <li><a role="menuitem" tabindex="0" data-target="#panelBookmarks" aria-haspopup="true"><span class="glyphicon glyphicon-book"></span> علامات</a></li>
                 <li><a role="menuitem" tabindex="0" data-target="#panelLegend" aria-haspopup="true"><span class="glyphicon glyphicon-list"></span> مفتاح الخريطه</a></li>
@@ -161,19 +289,19 @@
         </div>
         <!-- Title -->
         <div class="calcite-title calcite-overflow-hidden">
-            <span class="calcite-title-mainz hidden-xs">Style Explorer</span>
+            <span class="calcite-title-mainz hidden-xs">مرشد الحاج</span>
             <span class="calcite-title-divider hidden-xs"></span>
             <span class="calcite-title-sub hidden-xs">مرشدك في رحلة الحاج </span>
         </div>
         <!-- Nav -->
         <ul class="calcite-nav nav navbar-nav">
-            <li class="active"><a id="mapNav" class="hidden-xs hidden-sm" href="#mapTab" aria-controls="mapTab" aria-expanded="true" role="tab" data-toggle="tab" data-tooltip="tip" title="2D View" data-placement="bottom">Map</a></li>
-            <li><a id="sceneNav" class="hidden-xs hidden-sm" href="#sceneTab" aria-controls="sceneTab" role="tab" data-toggle="tab" data-tooltip="tip" title="3D View" data-placement="bottom">Scene</a></li>
+            <li class="active"><a id="mapNav" class="hidden-xs hidden-sm" href="#mapTab" aria-controls="mapTab" aria-expanded="true" role="tab" data-toggle="tab" data-tooltip="tip" title="2D View" data-placement="bottom">خريطة</a></li>
+            <li><a id="sceneNav" class="hidden-xs hidden-sm" href="#sceneTab" aria-controls="sceneTab" role="tab" data-toggle="tab" data-tooltip="tip" title="3D View" data-placement="bottom">كرة أرضية</a></li>
             <li><div class="calcite-navbar-search calcite-search-expanded" tabindex="-1"><div id="searchNavDiv" tabindex="0"></div></div></li>
         </ul>
     </nav><!--/.navbar -->
     <!-- Modal Window -->
-    <div class="modal fade" id="modalSplash" tabindex="-1" role="dialog" aria-labelledby="splashlModal">
+    <div class="modal fade in" id="modalSplash" tabindex="-1" role="dialog" aria-labelledby="splashlModal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
@@ -183,14 +311,49 @@
                                 <div class="text-center">
                                     <h3>مرشد الحاج</h3>
                                     <hr>
-                                    <p>تطبيق مرشد الحاج لارشاد الحاج بالمعالم الضرورية في المشاعر المقدسة و لتنبيه الحاج في حال توجد في المكان الخطاء .</p>
-                                    <br>
-                                    <p>و لكي نستطيع ان نساعدك رجاء ادخل الرقم التعريفي الخاص بك</p>
-                                    <br>
+                                    <p>تطبيق مرشد الحاج يسهل على الحاج إكتشاف الامكان الضرورية أثناء رحلة الحج،كما يساعد التطبيق الحاج على تتبع الجدول الزمنى لحملة الحج  </p>
+
+                                    <br />
+                                    <br />
+                                    <p>رجاء ادخل الرقم التعريفي الخاص بك</p>
 
                                     <div class="form-inline">
                                         <div class="form-group">
-                                            <button type="button" class="btn btn-success btn-lg" data-dismiss="modal">إبداء</button>
+                                            <input type="text" class="form-control" id="HajjID" placeholder="أدخل رقم التعريف ">
+                                            <br>
+
+                                            <button id="search" type="button" class="btn btn-success btn-lg" onclick="javascript:$('#modalSplash').hide()" data-target="#modalConfirm" data-toggle="modal">بحث</button>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade in" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="splashlModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="splash-body">
+                                <div class="text-center">
+                                    <h3>مرشد الحاج</h3>
+                                    <hr>
+                                    <p>مرحبا بالسيد:محمد عبد الله محمد</p>
+
+                                    <p>تقبل الله حجكم </p>
+
+                                    <div class="form-inline">
+                                        <div class="form-group">
+
+
+                                            <button id="btnstart" type="button" class="btn btn-success btn-lg" data-dismiss="modal">إبداء</button>
                                         </div>
                                     </div>
                                     <br>
@@ -233,7 +396,81 @@
                 </div>
             </div>
         </div>
+        <div id="panelTimeLine" class="panel collapse">
+            <div id="headingTimeLine" class="panel-heading" role="tab">
+                <div class="panel-title">
+                    <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseTimeLine" aria-expanded="true" aria-controls="collapseTimeLine"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span><span class="panel-label">الجدول الزمنى</span></a>
+                    <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelTimeLine"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
+                </div>
+            </div>
+            <div id="collapseTimeLine" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTimeLine">
+                <div class="panel-body">
+                    <div class="timeline" style="direction:ltr;">
+                        <div class="container left" style="background-color:white;color:black;">
+                            <div class="content">
+                                <h4>01-12-1439 1:30 </h4>
+                                <p>موعد الاقلاع من مطار القاهرة</p>
+                            </div>
+                        </div>
 
+                        <div class="container right" style="background-color:white;color:black;">
+                            <div class="content">
+                                <h4>01-12-1439 12:00 AM </h4>
+                                <p>الوصول الى فندق الرحمة</p>
+                            </div>
+                        </div>
+                        <div class="container left" style="background-color:white;color:black;">
+                            <div class="content">
+                                <h4>08-12-1439 00:00 AM </h4>
+                                <p>مغادرة فندق الرحمة</p>
+                            </div>
+                        </div>
+                        <div class="container right" style="background-color:white;color:black;">
+                            <div class="content">
+                                <h4>08-12-1439 00:00 AM </h4>
+                                <p>الوصول الى منى</p>
+                            </div>
+                        </div>
+                        <div class="container left">
+                            <div class="content">
+                                <h4>09-12-1439 08:00 AM </h4>
+                                <p>الوصول الى عرفات</p>
+                            </div>
+                        </div>
+                        <div class="container right">
+                            <div class="content">
+                                <h4>09-12-1439 10:00 PM </h4>
+                                <p>مغادرة عرفات</p>
+                            </div>
+                        </div>
+                        <div class="container left">
+                            <div class="content">
+                                <h4>10-12-1439 02:30 AM </h4>
+                                <p>مغادرة المزدلفة</p>
+                            </div>
+                        </div>
+                        <div class="container right">
+                            <div class="content">
+                                <h4>12-12-1439 04:30 PM </h4>
+                                <p>مغادرة منى</p>
+                            </div>
+                        </div>
+                        <div class="container left">
+                            <div class="content">
+                                <h4>19-12-1439 02:00 PM </h4>
+                                <p>مغادرة فندق الرحمة</p>
+                            </div>
+                        </div>
+                        <div class="container right">
+                            <div class="content">
+                                <h4>19-12-1439 10:00 PM </h4>
+                                <p>موعد الاقلاع من مطار الملك عبد العزيز</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Panel - Search -->
         <div id="panelSearch" class="panel collapse hidden-sm hidden-md hidden-lg">
             <div id="headingSearch" class="panel-heading" role="tab">
@@ -252,38 +489,33 @@
         <div id="panelBasemaps" class="panel collapse">
             <div id="headingBasemaps" class="panel-heading" role="tab">
                 <div class="panel-title">
-                    <a class="panel-toggle collapsed" role="button" data-toggle="collapse" href="#collapseBasemaps" aria-expanded="false" aria-controls="collapseBasemaps"><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span><span class="panel-label">Basemaps</span></a>
+                    <a class="panel-toggle collapsed" role="button" data-toggle="collapse" href="#collapseBasemaps" aria-expanded="false" aria-controls="collapseBasemaps"><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span><span class="panel-label">خرائط الاساس</span></a>
                     <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelBasemaps"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
                 </div>
             </div>
             <div id="collapseBasemaps" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingBasemaps">
                 <div class="panel-body">
                     <select id="selectBasemapPanel" class="form-control">
-                        <option value="streets" data-vector="streets-vector">Streets</option>
-                        <option value="satellite" data-vector="satellite">Satellite</option>
-                        <option value="hybrid" data-vector="hybrid">Hybrid</option>
-                        <option value="national-geographic" data-vector="national-geographic">National Geographic</option>
-                        <option value="topo" data-vector="topo-vector">Topographic</option>
-                        <option value="gray" data-vector="gray-vector" selected>Gray</option>
-                        <option value="dark-gray" data-vector="dark-gray-vector">Dark Gray</option>
-                        <option value="osm" data-vector="osm">Open Street Map</option>
-                        <option value="dark-gray" data-vector="streets-night-vector">Streets Night</option>
-                        <option value="streets" data-vector="streets-navigation-vector">Streets Navigation</option>
+                        <option value="streets" data-vector="streets-vector">الطرق</option>
+                        <option value="satellite" data-vector="satellite">صورة جوية</option>
+                        <option value="hybrid" data-vector="hybrid">صورة جوية مع الطرق</option>
+                        <option value="topo" data-vector="topo-vector">خريطه طبوغرافية</option>
+                        <option value="dark-gray" data-vector="dark-gray-vector">خريطه ليلية</option>
                     </select>
                 </div>
             </div>
         </div>
-        <!-- Compain -->
-        <div id="panelCompain" class="panel collapse">
-            <div id="headingCompain" class="panel-heading" role="tab">
+        <!-- campaign -->
+        <div id="panelcampaign" class="panel collapse">
+            <div id="headingcampaign" class="panel-heading" role="tab">
                 <div class="panel-title">
                     <a class="panel-toggle collapsed" role="button" data-toggle="collapse" href="#collapseBasemaps" aria-expanded="false" aria-controls="collapseBasemaps"><span class="esri-icon-radio-checked" aria-hidden="true"></span><span class="panel-label">حملتى</span></a>
-                    <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelCompain"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
+                    <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelcampaign"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
                 </div>
             </div>
-            <div id="collapseCompain" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCompain">
+            <div id="collapsecampaign" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingcampaign">
                 <div class="panel-body">
-                    <select id="selectBasemapPanel" class="form-control" style="direction:rtl;  font-size: large;">
+                    <select id="selectcampaign" class="form-control" style="direction:rtl;  font-size: large;">
                         <option value="1" data-vector="1" selected>1 - فندق الرحمة</option>
                         <option value="2" data-vector="2">2 - منى</option>
                         <option value="3" data-vector="3">3 - عرفة </option>
@@ -299,47 +531,31 @@
         <div id="panelBookmarks" class="panel collapse">
             <div id="headingBookmarks" class="panel-heading" role="tab">
                 <div class="panel-title">
-                    <a class="panel-toggle collapsed" role="button" data-toggle="collapse" href="#collapseBookmarks" aria-expanded="false" aria-controls="collapseBookmarks"><span class="glyphicon glyphicon-book" aria-hidden="true"></span><span class="panel-label">Bookmarks</span></a>
+                    <a class="panel-toggle collapsed" role="button" data-toggle="collapse" href="#collapseBookmarks" aria-expanded="false" aria-controls="collapseBookmarks"><span class="glyphicon glyphicon-book" aria-hidden="true"></span><span class="panel-label">ملخص الحالة</span></a>
                     <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelBookmarks"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
                 </div>
             </div>
             <div id="collapseBookmarks" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingBookmarks">
                 <div class="panel-body">
-                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner" role="listbox">
-                            <div class="item active">
-                                <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=300%C3%97200&w=300&h=200" alt="...">
-                                <div class="carousel-caption">
-                                    <!-- Your caption goes here -->
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=300%C3%97200&w=300&h=200" alt="...">
-                                <div class="carousel-caption">
-                                    <!-- Your caption goes here -->
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=300%C3%97200&w=300&h=200" alt="...">
-                                <div class="carousel-caption">
-                                    <!-- Your caption goes here -->
-                                </div>
-                            </div>
-                        </div>
-                        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
+
+
+
+
+                    <div class="Sammary">
+                        <p><span class="glyphicon glyphicon-map-marker"></span>أنت الان في مدينة جدة</p>
+                        <br />
+                        <p><span class="glyphicon glyphicon-record"></span>حسب الجدول الزمنى يجب أنت تتواجد في (منى)</p>
+                        <br />
+                        <p><span class="glyphicon glyphicon-time"></span>باقى 16 ساعة :25 دقيقة على مغادرة منى</p>
+                        <br />
+                        <p><span class="glyphicon glyphicon-bell"></span>انت على بعد 97 كيلو متر من المسكن</p>
+                        <a><span class="glyphicon glyphicon-home"></span>إضغط هنا للرجوع للمسكن</a>
                     </div>
+
+
+
+
+
                 </div>
             </div>
         </div>
@@ -347,7 +563,7 @@
         <div id="panelLegend" class="panel collapse">
             <div id="headingLegend" class="panel-heading" role="tab">
                 <div class="panel-title">
-                    <a class="panel-toggle collapsed" role="button" data-toggle="collapse" href="#collapseLegend" aria-expanded="false" aria-controls="collapseLegend"><span class="glyphicon glyphicon-list" aria-hidden="true"></span><span class="panel-label">Legend</span></a>
+                    <a class="panel-toggle collapsed" role="button" data-toggle="collapse" href="#collapseLegend" aria-expanded="false" aria-controls="collapseLegend"><span class="glyphicon glyphicon-list" aria-hidden="true"></span><span class="panel-label">مفتاح الخريطة</span></a>
                     <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelLegend"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
                 </div>
             </div>
@@ -361,7 +577,7 @@
         <div id="panelLayerlist" class="panel collapse">
             <div id="headingLayerlist" class="panel-heading" role="tab">
                 <div class="panel-title">
-                    <a class="panel-toggle collapsed" role="button" data-toggle="collapse" href="#collapseLayerlist" aria-expanded="false" aria-controls="collapseLayerlist"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span><span class="panel-label">Layerlist</span></a>
+                    <a class="panel-toggle collapsed" role="button" data-toggle="collapse" href="#collapseLayerlist" aria-expanded="false" aria-controls="collapseLayerlist"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span><span class="panel-label">الطبقات</span></a>
                     <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelLayerlist"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
                 </div>
             </div>
@@ -373,33 +589,28 @@
         </div>
 
         <!-- Panel - Print -->
-        <div id="panelPrint" class="panel collapse">
-            <div id="headingPrint" class="panel-heading">
+        <!-- Panel - Go -->
+        <div id="panelGo" class="panel collapse">
+            <div id="headingGo" class="panel-heading">
                 <div class="panel-title">
-                    <a class="panel-toggle collapsed" role="button" data-toggle="collapse" href="#collapsePrint" aria-expanded="false" aria-controls="collapsePrint"><span class="glyphicon glyphicon-print" aria-hidden="true"></span><span class="panel-label">Print</span></a>
-                    <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelPrint"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
+                    <a class="panel-toggle collapsed" role="button" data-toggle="collapse" href="#collapseGo" aria-expanded="false" aria-controls="collapseGo"><span class="glyphicon glyphicon-Go" aria-hidden="true"></span><span class="panel-label">معلومات</span></a>
+                    <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelGo"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
                 </div>
             </div>
-            <div id="collapsePrint" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingPrint">
-                <div class="panel-body body-light">
-                    <div id="printDiv"></div>
+            <div id="collapseGo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingGo">
+                <div id="infoPanel" class="panel-body">
+
+                </div>
+                <div class="form-inline">
+                    <div class="form-group">
+
+
+                        <button id="btnGo" type="button" class="btn btn-success btn-lg" data-dismiss="modal">الوصول الى الموقع</button>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Panel - Share -->
-        <div id="panelShare" class="panel collapse">
-            <div id="headingShare" class="panel-heading">
-                <div class="panel-title">
-                    <a class="panel-toggle collapsed" role="button" data-toggle="collapse" href="#collapseShare" aria-expanded="false" aria-controls="collapseShare"><span class="glyphicon glyphicon-share" aria-hidden="true"></span><span class="panel-label">Share</span></a>
-                    <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelShare"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
-                </div>
-            </div>
-            <div id="collapseShare" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingShare">
-                <div class="panel-body">
-                    <p>Share [Coming soon!]</p>
-                </div>
-            </div>
-        </div>
+
         <!-- Panel - Settings -->
         <div id="panelSettings" class="panel collapse">
 
@@ -419,7 +630,7 @@
                         <li role="presentation"><a href="#custom" aria-controls="custom" role="tab" data-toggle="tab">Layout</a></li>
                     </ul>
                     <div class="tab-content">
-                        <!-- Tab -Title -->
+                        <!-- Tab -Title
 
                         <div role="tabpanel" class="tab-pane active" id="title">
                             <div class="calcite-form-title">1. Set the map name and call to action</div>
@@ -454,19 +665,14 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="settingsSelectBasemap" class="col-xs-3 control-label">Basemap</label>
+                                    <label for="settingsSelectBasemap" class="col-xs-3 control-label">خرائط الاساس</label>
                                     <div class="col-xs-9">
                                         <select id="settingsSelectBasemap" class="form-control">
-                                            <option value="streets" data-vector="streets-vector">Streets</option>
-                                            <option value="satellite" data-vector="satellite">Satellite</option>
-                                            <option value="hybrid" data-vector="hybrid">Hybrid</option>
-                                            <option value="national-geographic" data-vector="national-geographic">National Geographic</option>
-                                            <option value="topo" data-vector="topo-vector">Topographic</option>
-                                            <option value="gray" data-vector="gray-vector" selected>Gray</option>
-                                            <option value="dark-gray" data-vector="dark-gray-vector">Dark Gray</option>
-                                            <option value="osm" data-vector="osm">Open Street Map</option>
-                                            <option value="dark-gray" data-vector="streets-night-vector">Streets Night</option>
-                                            <option value="streets" data-vector="streets-navigation-vector">Streets Navigation</option>
+                                            <option value="streets" data-vector="streets-vector">الطرق</option>
+                                            <option value="satellite" data-vector="satellite">صورة جوية</option>
+                                            <option value="hybrid" data-vector="hybrid">صورة جوية مع العناوين</option>
+                                            <option value="topo" data-vector="topo-vector">خريطه المرتفعات</option>
+                                            <option value="dark-gray" data-vector="dark-gray-vector">خرائط ليلية</option>
                                         </select>
                                     </div>
                                 </div>
@@ -797,7 +1003,7 @@
                     </div><!-- /.tab-content -->
                 </div><!-- /.panel-body -->
             </div><!-- /.panel-collapse -->
-        </div><!-- /.panel -->
+        </div><!-- /.panel -->-->
     </div> <!-- /.calcite-panels group-->
 
     <script type="text/javascript" src="cordova.js"></script>
@@ -805,376 +1011,718 @@
     <script type="text/javascript" src="scripts/index.js"></script>
 
     <script type="text/javascript">
-    var dojoConfig = {
-      has: {
-          "esri-promise-compatibility-deprecation-warnings": 0 // TODO
-      },
-      packages: [{
-        name: "bootstrap",
-        location: location.pathname.replace(/\/[^/]+$/, "") + "/dist/vendor/dojo-bootstrap"
-      },
-      {
-        name: "calcite-maps",
-        location: location.pathname.replace(/\/[^/]+$/, "") + "/dist/js/dojo"
-        //location: location.pathname.replace(/\/[^/]+$/, "") + "./../../lib/js/dojo"
-      },
-      {
-        name: "calcite-settings",
-        location: location.pathname.replace(/\/[^/]+$/, "") + "/js"
-      }]
-    };
+        var dojoConfig = {
+            has: {
+                "esri-promise-compatibility-deprecation-warnings": 0 // TODO
+            },
+            packages: [{
+                name: "bootstrap",
+                location: location.pathname.replace(/\/[^/]+$/, "") + "/dist/vendor/dojo-bootstrap"
+            },
+            {
+                name: "calcite-maps",
+                location: location.pathname.replace(/\/[^/]+$/, "") + "/dist/js/dojo"
+                //location: location.pathname.replace(/\/[^/]+$/, "") + "./../../lib/js/dojo"
+            },
+            {
+                name: "calcite-settings",
+                location: location.pathname.replace(/\/[^/]+$/, "") + "/js"
+            }
+                ,
+            {
+                name: "Hajj_Lib",
+                location: location.pathname.replace(/\/[^/]+$/, "") + "/lib/js/Business"
+            }]
+        };
     </script>
     <!-- ArcGIS JS 4.x -->
     <script src="https://js.arcgis.com/4.7/"></script>
     <script>
-
-    var app;
-
-    require([
-      // ArcGIS
-      "esri/Map",
-      "esri/Basemap",
-      "esri/WebMap",
-      "esri/layers/VectorTileLayer",
-      "esri/views/MapView",
-      "esri/views/SceneView",
-      "esri/widgets/Search",
-      "esri/widgets/Popup",
-      "esri/widgets/Home",
-      "esri/widgets/Legend",
-      "esri/widgets/ColorPicker",
-      "esri/core/watchUtils",
-      "dojo/query",
-      "dojo/dom-class",
-      "dojo/dom",
-      "dojo/on",
-
-      // Calcite Maps
-      "calcite-maps/calcitemaps-v0.6",
-      "calcite-maps/calcitemaps-arcgis-support-v0.6",
-      //"calcite-maps/calcitemaps",
-      "calcite-settings/panelsettings",
-
-      // Boostrap
-      "bootstrap/Collapse",
-      "bootstrap/Dropdown",
-      "bootstrap/Tab",
-      "bootstrap/Carousel",
-      "bootstrap/Tooltip",
-      "bootstrap/Modal",
-
-      // Dojo
-      "dojo/domReady!"
-    ], function(Map, Basemap, Webmap, VectorTileLayer, MapView, SceneView, Search, Popup, Home, Legend, ColorPicker,
-      watchUtils, query, domClass, dom, on, CalciteMapsSettings, CalciteMapsArcGISSupport, PanelSettings) {
-
-      app = {
-        zoom: 2,
-        lonlat: [-40,0],
-        mapView: null,
-        mapDiv: "mapViewDiv",
-        mapFL: null,
-        vectorLayer: null,
-        sceneView: null,
-        sceneDiv: "sceneViewDiv",
-        sceneFL: null,
-        activeView: null,
-        searchWidgetNav: null,
-        searchWidgetPanel: null,
-        searchWidgetSettings: null,
-        basemapSelected: "gray",
-        basemapSelectedAlt: "gray",
-        webmap: null,
-        webmapId: "df5b4bad631d4209b6ef7a88493dac7d",
-        padding: {
-          top: 50 ,
-          right: 0,
-          bottom: 0,
-          left: 0
-        },
-        uiPadding: {
-          components: ["zoom","attribution"],
-          padding: {
-            top: 15,
-            right: 15,
-            bottom: 30,
-            left: 15
-          }
-        },
-        popupOptions: {
-          autoPanEnabled: true,
-          messageEnabled: false,
-          spinnerEnabled: false,
-          dockEnabled: true,
-          dockOptions: {
-            buttonEnabled: true,
-            //breakpoint: 544 // default
-          }
-        },
-        colorPickerWidget: null,
-        panelSettings: null
-      }
-
-      //----------------------------------
-      // App
-      //----------------------------------
-
-      //app.panelSettings = new PanelSettings( { app: app } );
-
-      initializeMapViews();
-      initializeAppUI();
-      initializeAppSettings();
-      initializeWidgets();
-
-      //----------------------------------
-      // Map and Scene View
-      //----------------------------------
-
-      function initializeMapViews() {
-        // Webmap
-        app.webmap = new Webmap({
-          portalItem: {
-            id: app.webmapId
-          }
-        });
-        // 2D - MapView
-        app.mapView = new MapView({
-          container: app.mapDiv,
-          map: app.webmap,
-          zoom: app.zoom,
-          center: app.lonlat,
-          padding: app.padding,
-          ui: app.uiPadding,
-          popup: new Popup(app.popupOptions),
-          visible: true
-        });
-        // Set active view
-        app.activeView = app.mapView;
-        // 3D - SceneView
-        app.sceneView = new SceneView({
-          container: app.sceneDiv,
-          map: app.webmap,
-          zoom: app.zoom,
-          center: app.lonlat,
-          padding: app.padding,
-          ui: app.uiPadding,
-          popup: new Popup(app.popupOptions),
-          visible: false
-        });
-
-        // Listen for view breakpoint changes and update control location
-        app.mapView.watch("widthBreakpoint", function(newVal, oldVal) {
-          function setPadding(newVal, oldVal) {
-            if (!app.panelSettings) {
-              return;
-            }
-            if (newVal === "small" && oldVal === "medium") {
-              app.panelSettings.setPadding(app.panelSettings.activeLayout.viewPaddingSmallScreen, app.panelSettings.activeLayout.uiPadding);
-            } else if (newVal === "medium" && oldVal === "small") {
-              app.panelSettings.setPadding(app.panelSettings.activeLayout.viewPadding, app.panelSettings.activeLayout.uiPadding);
-            }
-          }
-          // Set padding for navs that change height
-          if (app.panelSettings.activeLayout.viewPaddingSmallScreen) {
-            setPadding(newVal, oldVal);
-          }
-        });
-      }
-
-      //----------------------------------
-      // View widgets
-      //----------------------------------
-
-      function initializeWidgets() {
-        app.mapView.when(function() {
-          app.panelSettings.setWidgetPosition(app.mapView, "home", "top-left", 0);
-          //app.panelSettings.setWidgetPosition(app.mapView, "zoom", "top-left", 1);
-          app.panelSettings.setWidgetPosition(app.mapView, "compass", "top-left");
-        });
-
-        app.sceneView.when(function() {
-          app.panelSettings.setWidgetPosition(app.sceneView, "home", "top-left", 0);
-          //app.panelSettings.setWidgetPosition(app.sceneView, "zoom", "top-left");
-          app.panelSettings.setWidgetPosition(app.sceneView, "compass", "top-left");
-          app.panelSettings.setWidgetPosition(app.sceneView, "navtoggle", "top-left");
-        });
-
-        // Panel widgets
-        app.panelSettings.setWidgetPosition(app.mapView, "legend", "top-left", 0, "legendDiv");
-        app.panelSettings.setWidgetPosition(app.mapView, "layerlist", "top-left", 0, "layerlistDiv");
-        app.panelSettings.setWidgetPosition(app.mapView, "print", "top-left", 0, "printDiv");
-
-      }
-
-      //----------------------------------
-      // App panel settings
-      //----------------------------------
-
-      function initializeAppSettings() {
-        // Panel settings
-        app.panelSettings = new PanelSettings( { app: app } );
-        app.panelSettings.activeLayout = app.panelSettings.APP_LAYOUTS.TOP;
-        app.panelSettings.setLayout(app.panelSettings.activeLayout, false);
-
-        // Set padding for navs that change height
-        if (window.innerWidth < app.activeView.breakpoints.small && app.panelSettings.activeLayout.viewPaddingSmallScreen) {
-          app.panelSettings.setPadding(app.panelSettings.activeLayout.viewPaddingSmallScreen, app.panelSettings.activeLayout.uiPadding);
+        if (true) {
+            $(document).ready(function () {
+                $('#modalSplash').show();
+            });
         }
-      }
+        var app;
 
-      //----------------------------------
-      // App UI Handlers
-      //----------------------------------
+        require([
+            // ArcGIS
 
-      function initializeAppUI() {
-        // App UI
-        setTabEvents();
-        setBasemapEvents();
-        setSearchWidgets();
-        setColorPicker();
-        CalciteMapsArcGISSupport.setPopupPanelSync(app.mapView);
-        CalciteMapsArcGISSupport.setPopupPanelSync(app.sceneView);
-        CalciteMapsArcGISSupport.setSearchExpandEvents(app.searchWidgetNav);
+            "esri/Map",
+            "esri/Basemap",
+            "esri/WebMap",
+            "esri/layers/VectorTileLayer",
+            "esri/views/MapView",
+            "esri/views/SceneView",
+            "esri/widgets/Search",
+            "esri/widgets/Popup",
+            "esri/widgets/Home",
+            "esri/widgets/Legend",
+            "esri/widgets/ColorPicker",
+            "esri/core/watchUtils",
+            "dojo/query",
+            "dojo/dom-class",
+            "dojo/dom",
+            "dojo/on",
+            "esri/layers/MapImageLayer",
+            "esri/layers/FeatureLayer",
+            // Calcite Maps
+            "calcite-maps/calcitemaps-v0.6",
+            "calcite-maps/calcitemaps-arcgis-support-v0.6",
+            //"calcite-maps/calcitemaps",
+            "calcite-settings/panelsettings",
+            "esri/PopupTemplate",
+            "esri/tasks/QueryTask",
+            "esri/tasks/support/Query",
+            "dojo/_base/array",
+            "esri/geometry/Point",
+            "esri/symbols/SimpleMarkerSymbol",
+            "esri/Graphic",
+            "esri/symbols/SimpleLineSymbol",
+            "esri/widgets/Legend",
+            "esri/widgets/Track",
+            // Boostrap
+            "bootstrap/Collapse",
+            "bootstrap/Dropdown",
+            "bootstrap/Tab",
+            "bootstrap/Carousel",
+            "bootstrap/Tooltip",
+            "bootstrap/Modal",
 
-      }
+            // Dojo
+            "dojo/domReady!"
+        ], function (Map, Basemap, Webmap, VectorTileLayer, MapView, SceneView, Search, Popup, Home, Legend, ColorPicker,
+            watchUtils, query, domClass, dom, on, MapImageLayer, FeatureLayer, CalciteMapsSettings, CalciteMapsArcGISSupport, PanelSettings, PopupTemplate, QueryTask, Query, Array, Point, SimpleMarkerSymbol, Graphic, SimpleLineSymbol, Legend, Track) {
+                app = {
+                    scale: 250000,
+                    lonlat: [39.879261, 21.388608],
+                    MapFeatureLayer: null,
+                    mapView: null,
+                    mapDiv: "mapViewDiv",
+                    mapFL: null,
+                    MapLayerURL: "http://18.191.44.107:6080/arcgis/rest/services/hakathon2/MapServer",
+                    vectorLayer: null,
+                    sceneView: null,
+                    sceneDiv: "sceneViewDiv",
+                    sceneFL: null,
+                    activeView: null,
+                    searchWidgetNav: null,
+                    searchWidgetPanel: null,
+                    searchWidgetSettings: null,
+                    basemapSelected: "hybrid",
+                    basemapSelectedAlt: "gray",
+                    map: null,
+                    //webmapId: "df5b4bad631d4209b6ef7a88493dac7d",
+                    padding: {
+                        top: 50,
+                        right: 0,
+                        bottom: 0,
+                        left: 0
+                    },
+                    uiPadding: {
+                        components: ["zoom", "attribution"],
+                        padding: {
+                            top: 15,
+                            right: 15,
+                            bottom: 30,
+                            left: 15
+                        }
+                    },
+                    popupOptions: {
+                        autoPanEnabled: true,
+                        messageEnabled: false,
+                        spinnerEnabled: false,
+                        dockEnabled: true,
+                        dockOptions: {
+                            buttonEnabled: true,
+                            //breakpoint: 544 // default
+                        }
+                    },
+                    colorPickerWidget: null,
+                    panelSettings: null,
+                    HajjObj: null
+                }
 
-      //----------------------------------
-      // View Tabs
-      //----------------------------------
+                //----------------------------------
+                // App
+                //----------------------------------
 
-      function setTabEvents() {
+                //app.panelSettings = new PanelSettings( { app: app } );
+                //app.HajjObj = new hajjLib(this);
 
-        // Tab event
-        query(".calcite-navbar li a[data-toggle='tab']").on("show.bs.tab", function(e) {
-          // Views
-          if (e.target.text.indexOf("Map") > -1) {
-            syncViews(app.sceneView, app.mapView);
-            app.activeView = app.mapView;
-          } else {
-            syncViews(app.mapView, app.sceneView);
-            app.activeView = app.sceneView;
-          }
-          // Search
-          syncSearch();
-          // Hide popup - TODO
-          app.activeView.popup.set({
-            visible: false
-          });
-        });
+                initializeMapViews();
+                initializeAppUI();
+                initializeAppSettings();
+                initializeWidgets();
 
-        // Views
-        function syncViews(fromView, toView) {
-          watchUtils.whenTrueOnce(fromView, "ready", function(){
-            var viewPt = fromView.viewpoint.clone();
-            fromView.container = null;
-            if (fromView.type === "3d") {
-              toView.container = app.mapDiv;
-            } else {
-              toView.container = app.sceneDiv;
-            }
-            toView.viewpoint = viewPt;
-            toView.padding = fromView.padding;
-          });
-        }
 
-        // Search
-        function syncSearch() {
-          app.searchWidgetNav.view = app.activeView;
-          app.searchWidgetPanel.view = app.activeView;
-          app.searchWidgetSettings.view = app.activeView;
-          // Sync
-          if (app.searchWidgetNav.selectedResult) {
-            app.searchWidgetNav.search(app.searchWidgetNav.selectedResult.name);
-          }
-          if (app.searchWidgetPanel.selectedResult) {
-            app.searchWidgetPanel.search(app.searchWidgetPanel.selectedResult.name);
-          }
-        }
-      }
+                //----------------------------------
+                // Map and Scene View
+                //----------------------------------
 
-      //----------------------------------
-      // Basemaps
-      //----------------------------------
+                function initializeMapViews() {
+                    // Webmap
+                    //app.webmap = new Webmap({
+                    //    portalItem: {
+                    //        id: app.webmapId
+                    //    }
+                    //});
+                    // 2D - MapView
+                    app.map = new Map({ basemap: app.basemapSelected, ground: "world-elevation", constraints: { snapToZoom: false } });
 
-      function setBasemapEvents() {
 
-        // Sync basemaps for map and scene
-        query("#selectBasemapPanel, #settingsSelectBasemap").on("change", function(e){
-          app.basemapSelected = e.target.options[e.target.selectedIndex].dataset.vector;
-          app.basemapSelectedAlt = e.target.value;
-          setBasemaps();
-        });
 
-        function setBasemaps() {
-          app.mapView.map.basemap = app.basemapSelected;
-          app.sceneView.map.basemap = app.basemapSelectedAlt;
-        }
-      }
 
-      //----------------------------------
-      // Search Widgets
-      //----------------------------------
+                    app.mapView = new MapView({
+                        container: app.mapDiv,
+                        map: app.map,
+                        scale: app.scale,
+                        center: app.lonlat,
+                        padding: app.padding,
+                        ui: app.uiPadding,
+                        popup: new Popup(app.popupOptions),
+                        visible: true
+                    });
+                    // Set active view
+                    app.activeView = app.mapView;
+                    // 3D - SceneView
+                    app.sceneView = new SceneView({
+                        container: app.sceneDiv,
+                        map: app.map,
+                        zoom: app.zoom,
+                        center: app.lonlat,
+                        padding: app.padding,
+                        ui: app.uiPadding,
+                        popup: new Popup(app.popupOptions),
+                        visible: false
+                    });
 
-      function setSearchWidgets() {
+                    // Listen for view breakpoint changes and update control location
+                    app.mapView.watch("widthBreakpoint", function (newVal, oldVal) {
+                        function setPadding(newVal, oldVal) {
+                            if (!app.panelSettings) {
+                                return;
+                            }
+                            if (newVal === "small" && oldVal === "medium") {
+                                app.panelSettings.setPadding(app.panelSettings.activeLayout.viewPaddingSmallScreen, app.panelSettings.activeLayout.uiPadding);
+                            } else if (newVal === "medium" && oldVal === "small") {
+                                app.panelSettings.setPadding(app.panelSettings.activeLayout.viewPadding, app.panelSettings.activeLayout.uiPadding);
+                            }
+                        }
+                        // Set padding for navs that change height
+                        if (app.panelSettings.activeLayout.viewPaddingSmallScreen) {
+                            setPadding(newVal, oldVal);
+                        }
+                    });
+                }
 
-        //TODO - Search Nav + Panel (detach/attach)
-        app.searchWidgetNav = createSearchWidget("searchNavDiv", true);
-        app.searchWidgetPanel = createSearchWidget("searchPanelDiv", true);
-        app.searchWidgetSettings = createSearchWidget("settingsSearchDiv", false);
+                //----------------------------------
+                // View widgets
+                //----------------------------------
 
-         // Create widget
-        function createSearchWidget(parentId, showPopup) {
-          var search = new Search({
-            viewModel: {
-              view: app.activeView,
-              showPopupOnSelect: showPopup,
-              highlightEnabled: false,
-              maxSuggestions: 4
-            },
-            }, parentId);
-          return search;
-        }
-      }
+                function initializeWidgets() {
+                    app.mapView.when(function () {
+                        app.panelSettings.setWidgetPosition(app.mapView, "home", "top-left", 0);
+                        //app.panelSettings.setWidgetPosition(app.mapView, "zoom", "top-left", 1);
+                        app.panelSettings.setWidgetPosition(app.mapView, "compass", "top-left");
+                    });
 
-      //----------------------------------
-      // Colorpicker Widget
-      //----------------------------------
+                    app.sceneView.when(function () {
+                        app.panelSettings.setWidgetPosition(app.sceneView, "home", "top-left", 0);
+                        //app.panelSettings.setWidgetPosition(app.sceneView, "zoom", "top-left");
+                        app.panelSettings.setWidgetPosition(app.sceneView, "compass", "top-left");
+                        app.panelSettings.setWidgetPosition(app.sceneView, "navtoggle", "top-left");
+                    });
 
-      function setColorPicker() {
-        app.colorPickerWidget = new ColorPicker({
-            required: false,
-            showRecentColors: false,
-            showTransparencySlider: false
-          }, "colorPickerDiv");
-      }
+                    // Panel widgets
+                    app.panelSettings.setWidgetPosition(app.mapView, "legend", "top-left", 0, "legendDiv");
+                    app.panelSettings.setWidgetPosition(app.mapView, "layerlist", "top-left", 0, "layerlistDiv");
+                    app.panelSettings.setWidgetPosition(app.mapView, "print", "top-left", 0, "printDiv");
 
-      //----------------------------------
-      // Toggle nav
-      //----------------------------------
-      // query("#calciteToggleNavbar").on("click", function(e) {
-      //   var padding;
-      //   if (query(".calcite-nav-hidden").length > 0) { // hidden
-      //     //app.panelSettings.setLayout(app.panelSettings.activeLayout, true);
-      //     //query(".calcite-panels .panel.in").collapse("hide");
-      //   } else {
-      //     //app.panelSettings.setLayout(app.panelSettings.activeLayout, false);
-      //   }
-      //   query(".calcite-dropdown").removeClass("open");
-      //   query(".calcite-dropdown-toggle").removeClass("open");
-      // });
+                }
 
-      //----------------------------------
-      // Manual show/hide menu dropdown (slide)
-      //----------------------------------
+                //----------------------------------
+                // App panel settings
+                //----------------------------------
 
-      // query(".dropdown-toggle").on('click', function (e) {
-      //   // Show dropdown nav
-      //   query(this).parent().toggleClass("open");
-      //   // Menu animcation
-      //   query(".calcite-dropdown-toggle").toggleClass("open");
-      // });
+                function initializeAppSettings() {
+                    // Panel settings
+                    app.panelSettings = new PanelSettings({ app: app });
+                    app.panelSettings.activeLayout = app.panelSettings.APP_LAYOUTS.TOP;
+                    app.panelSettings.setLayout(app.panelSettings.activeLayout, false);
 
-    });
+                    // Set padding for navs that change height
+                    if (window.innerWidth < app.activeView.breakpoints.small && app.panelSettings.activeLayout.viewPaddingSmallScreen) {
+                        app.panelSettings.setPadding(app.panelSettings.activeLayout.viewPaddingSmallScreen, app.panelSettings.activeLayout.uiPadding);
+                    }
+                }
+
+                //----------------------------------
+                // App UI Handlers
+                //----------------------------------
+
+                function initializeAppUI() {
+                    // App UI
+                    setTabEvents();
+                    setBasemapEvents();
+                    setSearchWidgets();
+                    setColorPicker();
+                    CalciteMapsArcGISSupport.setPopupPanelSync(app.mapView);
+                    CalciteMapsArcGISSupport.setPopupPanelSync(app.sceneView);
+                    CalciteMapsArcGISSupport.setSearchExpandEvents(app.searchWidgetNav);
+
+                }
+
+                //----------------------------------
+                // View Tabs
+                //----------------------------------
+
+                function setTabEvents() {
+
+                    // Tab event
+                    query(".calcite-navbar li a[data-toggle='tab']").on("show.bs.tab", function (e) {
+                        // Views
+                        if (e.target.text.indexOf("Map") > -1) {
+                            syncViews(app.sceneView, app.mapView);
+                            app.activeView = app.mapView;
+                        } else {
+                            syncViews(app.mapView, app.sceneView);
+                            app.activeView = app.sceneView;
+                        }
+                        // Search
+                        syncSearch();
+                        // Hide popup - TODO
+                        app.activeView.popup.set({
+                            visible: false
+                        });
+                    });
+
+                    // Views
+                    function syncViews(fromView, toView) {
+                        watchUtils.whenTrueOnce(fromView, "ready", function () {
+                            var viewPt = fromView.viewpoint.clone();
+                            fromView.container = null;
+                            if (fromView.type === "3d") {
+                                toView.container = app.mapDiv;
+                            } else {
+                                toView.container = app.sceneDiv;
+                            }
+                            toView.viewpoint = viewPt;
+                            toView.padding = fromView.padding;
+                        });
+                    }
+
+                    // Search
+                    function syncSearch() {
+                        app.searchWidgetNav.view = app.activeView;
+                        app.searchWidgetPanel.view = app.activeView;
+                        app.searchWidgetSettings.view = app.activeView;
+                        // Sync
+                        if (app.searchWidgetNav.selectedResult) {
+                            app.searchWidgetNav.search(app.searchWidgetNav.selectedResult.name);
+                        }
+                        if (app.searchWidgetPanel.selectedResult) {
+                            app.searchWidgetPanel.search(app.searchWidgetPanel.selectedResult.name);
+                        }
+                    }
+                }
+
+                //----------------------------------
+                // Basemaps
+                //----------------------------------
+
+                function setBasemapEvents() {
+
+                    // Sync basemaps for map and scene
+                    query("#selectBasemapPanel, #settingsSelectBasemap").on("change", function (e) {
+                        app.basemapSelected = e.target.options[e.target.selectedIndex].dataset.vector;
+                        app.basemapSelectedAlt = e.target.value;
+                        setBasemaps();
+                    });
+
+                    function setBasemaps() {
+                        app.mapView.map.basemap = app.basemapSelected;
+                        app.sceneView.map.basemap = app.basemapSelectedAlt;
+                    }
+                }
+
+                //----------------------------------
+                // Search Widgets
+                //----------------------------------
+
+                function setSearchWidgets() {
+
+                    //TODO - Search Nav + Panel (detach/attach)
+                    app.searchWidgetNav = createSearchWidget("searchNavDiv", true);
+                    app.searchWidgetPanel = createSearchWidget("searchPanelDiv", true);
+                    app.searchWidgetSettings = createSearchWidget("settingsSearchDiv", false);
+
+                    // Create widget
+                    function createSearchWidget(parentId, showPopup) {
+                        var search = new Search({
+                            viewModel: {
+                                view: app.activeView,
+                                showPopupOnSelect: showPopup,
+                                highlightEnabled: false,
+                                maxSuggestions: 4
+                            },
+                        }, parentId);
+                        return search;
+                    }
+                }
+
+                //----------------------------------
+                // Colorpicker Widget
+                //----------------------------------
+
+                function setColorPicker() {
+                    app.colorPickerWidget = new ColorPicker({
+                        required: false,
+                        showRecentColors: false,
+                        showTransparencySlider: false
+                    }, "colorPickerDiv");
+                }
+
+                //-------------legend---------------------
+           var lengend= new Legend({
+                container: "legendDiv",
+                view: app.activeView
+
+
+            });
+            var track = new Track({
+
+                view: app.activeView
+
+            });
+            app.activeView.ui.add(track, "top-left");
+                // Toggle nav
+                //----------------------------------
+                // query("#calciteToggleNavbar").on("click", function(e) {
+                //   var padding;
+                //   if (query(".calcite-nav-hidden").length > 0) { // hidden
+                //     //app.panelSettings.setLayout(app.panelSettings.activeLayout, true);
+                //     //query(".calcite-panels .panel.in").collapse("hide");
+                //   } else {
+                //     //app.panelSettings.setLayout(app.panelSettings.activeLayout, false);
+                //   }
+                //   query(".calcite-dropdown").removeClass("open");
+                //   query(".calcite-dropdown-toggle").removeClass("open");
+                // });
+
+                //----------------------------------
+                // Manual show/hide menu dropdown (slide)
+                //----------------------------------
+
+                // query(".dropdown-toggle").on('click', function (e) {
+                //   // Show dropdown nav
+                //   query(this).parent().toggleClass("open");
+                //   // Menu animcation
+                //   query(".calcite-dropdown-toggle").toggleClass("open");
+                // });
+
+                //-----------functions-----------
+                function CreatHajjFeatureLayer() {
+                    var lyr = new FeatureLayer({
+                        url: app.MapLayerURL + "/0",
+                        maxScale: 0,
+                        minScale: 0,
+                        outFields: ["*"]
+                    });
+                    lyr.when(function (e) {
+                        lyr.set({
+                            popupTemplate: new PopupTemplate({
+                                content: [
+
+                                    {
+                                        type: "fields",
+                                        fieldInfos: [
+                                            {
+                                                fieldName: "Location_Order",
+                                                visible: true,
+                                                label: "الترتيب:"
+
+                                            }
+                                            ,
+                                            {
+                                                fieldName: "Name",
+                                                visible: true,
+                                                label: "الاسم:"
+                                            },
+                                            {
+                                                fieldName: "hakathon.DBO.Locations.Area",
+                                                visible: true,
+                                                label: "المنطقة:"
+                                            },
+                                            {
+                                                fieldName: "Start_date",
+                                                visible: true,
+                                                label: "تاريخ الدخول:"
+                                            }
+
+                                            ,
+                                            {
+                                                fieldName: "End_Date",
+                                                visible: true,
+                                                label: "تاريخ الخروج :"
+                                            }
+                                            ,
+                                            {
+                                                fieldName: "End_Time",
+                                                visible: true,
+                                                label: "وقت الخروج:"
+                                            }
+                                            ,
+                                            {
+                                                fieldName: "days",
+                                                visible: true,
+                                                label: "عدد ايام المكوث:"
+                                            },
+                                            {
+                                                fieldName: "Note",
+                                                visible: true,
+                                                label: "ملاحظات:"
+                                            },
+
+
+                                        ]
+                                    }],
+                                title: "مسار الحملة",
+
+                                actions: [{
+                                    title: "نسخ رابط الموقع",
+                                    id: "CopyWhiteLand",
+                                    className: "esri-icon-link"
+                                },
+                                {
+                                    title: "جووجل",
+                                    id: "MOHgoogle",
+                                    className: "esri-icon-applications"
+                                },
+                                {
+                                    title: "مسار الوصول للموقع",
+                                    id: "MOHgoogleRout",
+                                    className: "esri-icon-navigation"
+                                }]
+                            })
+                        });
+                    })
+                    return lyr;
+                }
+                function CreateMapLayer() {
+                    var layer = new MapImageLayer({
+                        url: app.MapLayerURL
+                        //,
+                        //sublayers: [
+                        //    {
+                        //        id: 3,
+                        //        visible: false,
+                        //        title: "طبقة الاحياءالامانات"
+
+                        //    }, {
+                        //        id: 2,
+                        //        visible: true,
+                        //        title: "طبقة الامانات"
+
+                        //    }, {
+                        //        id: 1,
+                        //        visible: true,
+                        //        title: "طبقة حدود المواقع"
+
+                        //    }, {
+                        //        id: 0,
+                        //        visible: false,
+                        //        title: "طبقة المواقع"
+
+                        //    }
+                        //]
+                    });
+                    return layer;
+                }
+                function ZoonToLocation(order) {
+                    var Url = app.MapLayerURL + "/0";
+
+                    var queryTask = new QueryTask(Url);
+                    var query = new Query();
+                    query.returnGeometry = true;
+                    query.outFields = ['*'];
+                    query.where = "Location_Order ='" + order + "'";
+
+                    queryTask.execute(query).then(function (featureSet) {
+                        var items = Array.map(featureSet.features, function (feature) {
+                            if (feature.geometry != null) {
+                                // select the region.
+
+
+                                var gra = feature;
+
+
+                                app.sceneView.goTo({
+                                    target: feature.geometry,
+                                    zoom: 17,
+                                    tilt: 45
+                                }, {
+                                        animate: true,
+                                        duration: 500
+
+                                    });
+                                app.mapView.goTo({
+                                    target: feature.geometry,
+                                    zoom: 17,
+                                    tilt: 45
+                                }, {
+                                        animate: true,
+                                        duration: 500
+
+                                    });
+
+                            }
+                        });
+                    });
+                }
+                function ZoonToLPoint(lat, lng, Att) {
+
+                    var pt = new Point({
+                        latitude: lat,
+                        longitude: lng
+                    });
+                    var symbol = {
+                        type: "simple-marker",  // autocasts as new SimpleMarkerSymbol()
+                        style: "circle",
+                        color: "blue",
+                        size: "10px",  // pixels
+                        outline: {  // autocasts as new SimpleLineSymbol()
+                            color: [255, 255, 0],
+                            width: 3  // points
+                        }
+                    };
+
+                    app.sceneView.goTo({
+                        target: pt,
+                        zoom: 17,
+                        tilt: 45
+                    }, {
+                            animate: true,
+                            duration: 500
+
+                        });
+                    app.mapView.goTo({
+                        target: pt,
+                        zoom: 17,
+                        tilt: 45
+                    }, {
+                            animate: true,
+                            duration: 500
+
+                        });
+                    var Graph = new Graphic({
+                        geometry: pt,
+                        symbol: symbol,
+                        attributes: Att
+
+
+                    });
+
+                    app.mapView.graphics.add(Graph);
+                    app.sceneView.graphics.add(Graph);
+
+                }
+                function GoogleRout(lat, long) {
+                    window.open("https://www.google.com/maps/dir/?api=1&destination=" + lat + "," + long + "&travelmode=driving");
+
+
+                }
+
+                //----------Events---------------
+                query("#btncampaign").on("click", function (e) {
+
+                    ZoonToLocation(1);
+
+
+                });
+                query("#btnstart").on("click", function (e) {
+
+                    app.MapFeatureLayer = CreatHajjFeatureLayer();
+                    var mapLayer = CreateMapLayer();
+
+
+                    app.map.add(app.MapFeatureLayer);
+                    app.map.add(mapLayer);
+
+                    //query("#panelBookmarks").show();
+
+
+
+                });
+
+                query("#selectcampaign").on("change", function (e) {
+                    var campaignID = dom.byId("selectcampaign").value;
+                    ZoonToLocation(campaignID);
+                });
+
+                app.mapView.popup.on("trigger-action", function (event) {
+                    // If the zoom-out action is clicked, fire the zoomOut() function
+
+                    if (event.action.id === "MOHgoogle") {
+                        window.open("https://www.google.com/maps/?q=" + app.mapView.popup.selectedFeature.geometry.latitude + "," + app.mapView.popup.selectedFeature.geometry.longitude);
+                    }
+                    else if (event.action.id === "MOHgoogleRout") {
+                        window.open("https://www.google.com/maps/dir/?api=1&destination=" + app.mapView.popup.selectedFeature.geometry.latitude + "," + app.mapView.popup.selectedFeature.geometry.longitude + "&travelmode=driving");
+                    }
+                });
+                btnMotouf
+                query("#btnMotouf").on("click", function (e) {
+                    query("#infoPanel").html("<p>شركة المنصور لخدمة الحجاج</p></br><p>جوال:0543225889</p></br><p>العنوان:غير محدد</p></br><p>مواعيد العمل :من 6 صباحا حتى 12 مساء</p>");
+                    ZoonToLPoint(21.416004, 39.818471, null)
+                    query("#btnGo").on("click", function (e) {
+                        GoogleRout(21.416004, 39.818471);
+
+                    });
+                });
+
+                query("#btnHaram").on("click", function (e) {
+                    query("#infoPanel").html("<p>المسجد الحرم</p>");
+                    ZoonToLPoint(21.423874, 39.825245, null)
+                    query("#btnGo").on("click", function (e) {
+                        GoogleRout(21.423874, 39.825245);
+
+                    });
+                });
+
+
+
+                query("#btnGamarat").on("click", function (e) {
+                    query("#infoPanel").html("<p>المسجد الحرم</p>");
+                    ZoonToLPoint(
+                        21.421210, 39.872988, null)
+                    query("#btnGo").on("click", function (e) {
+                        GoogleRout(21.421210, 39.872988);
+
+                    });
+                });
+
+
+
+                query("#btnRailSation").on("click", function (e) {
+                    query("#infoPanel").html("<p> قطار المشاعر-محطة منى 3 جمرات</p>");
+                    ZoonToLPoint(21.418335, 39.870887, null)
+                    query("#btnGo").on("click", function (e) {
+                        GoogleRout(21.418335, 39.870887);
+
+                    });
+                });
+
+                21.436012, 39.901786
+                query("#btnHospital").on("click", function (e) {
+                    query("#infoPanel").html("<p> مجمع الطوارئ بالمعيصم</p>");
+                    ZoonToLPoint(21.436012, 39.901786, null)
+                    query("#btnGo").on("click", function (e) {
+                        GoogleRout(21.436012, 39.901786);
+
+                    });
+                });
+
+            });
     </script>
 </body>
 </html>
