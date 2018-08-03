@@ -247,6 +247,7 @@
         <title>مرشد الحاج</title>
     </head>
 <body class="calcite-maps calcite-nav-top">
+
     <!-- Navbar -->
     <nav class="navbar navbar-fixed-top calcite-navbar calcite-bg-custom calcite-text-light" style="background-color: rgb(76, 76, 76);">
         <!-- Menu -->
@@ -262,24 +263,24 @@
                 </div>
             </a>
             <ul class="dropdown-menu">
-                <li><a role="menuitem" tabindex="0" data-target="#modalSplash" data-toggle="modal" aria-haspopup="true"> تغيير المستخدم</a></li>
+                <!--<li><a role="menuitem" tabindex="0" data-target="#modalSplash" data-toggle="modal" aria-haspopup="true"> تغيير المستخدم</a></li>-->
                 <li><a id="btncampaign" role="menuitem" data-target="#panelcampaign" aria-haspopup="true"><span class="esri-icon-radio-checked"> </span> حملتى    </a></li>
                 <li><a role="menuitem" data-target="#panelTimeLine" aria-haspopup="true"> <span class="glyphicon glyphicon-calendar"></span> مواعيد التفويج </a></li>
                 <li><a id="btnMotouf" role="menuitem" data-target="#panelGo" aria-haspopup="true"><span class="esri-icon-organization"></span> شركة الطوافة </a></li>
                 <li><a id="btnHaram" role="menuitem" data-target="#panelGo" aria-haspopup="true"><span class="esri-icon-polyline"></span> الى الحرم  </a></li>
                 <li><a id="btnGamarat" role="menuitem" data-target="#panelGo" aria-haspopup="true"> <span class="esri-icon-polyline"></span>الى الجمرات </a></li>
                 <!--<li><a id="btnToHotel"  role="menuitem" data-target="#mapTab" aria-haspopup="true"> <span class="esri-icon-polyline"></span>الى الفندق </a></li>-->
-                <li><a id="btnRailSation" role="menuitem" data-target="#mapTab" aria-haspopup="true"> <span class="glyphicon glyphicon-map-marker"></span> أقرب محطة قطار  </a></li>
-                <li><a id="btnHospital" role="menuitem" data-target="#mapTab" aria-haspopup="true"> <span class="glyphicon glyphicon-map-marker"></span> أقرب مستشفى   </a></li>
-                <li><a id="btnPlice" role="menuitem" data-target="#mapTab" aria-haspopup="true"> <span class="glyphicon glyphicon-map-marker"></span> أقرب مركز شرطة   </a></li>
-                <li><a id="btndeen" role="menuitem" data-target="#mapTab" aria-haspopup="true">  <span class="glyphicon glyphicon-map-marker"></span> أقرب مكتب ارشاد   </a></li>
-                <li><a role="menuitem" data-target="#mapTab" aria-haspopup="true"> <span class="glyphicon glyphicon-map-marker"></span> أقرب مسجد   </a></li>
-                <li><a role="menuitem" data-target="#mapTab" aria-haspopup="true"> <span class="glyphicon glyphicon-map-marker"></span> أقرب دورة مياه   </a></li>
+                <li><a id="btnRailSation" role="menuitem" data-target="#panelGo" aria-haspopup="true"> <span class="glyphicon glyphicon-map-marker"></span> أقرب محطة قطار  </a></li>
+                <li><a id="btnHospital" role="menuitem" data-target="#panelGo" aria-haspopup="true"> <span class="glyphicon glyphicon-map-marker"></span> أقرب مستشفى   </a></li>
+                <li><a id="btnPlice" role="menuitem" data-target="#panelGo" aria-haspopup="true"> <span class="glyphicon glyphicon-map-marker"></span> أقرب مركز شرطة   </a></li>
+                <li><a id="btndeen" role="menuitem" data-target="#panelGo" aria-haspopup="true">  <span class="glyphicon glyphicon-map-marker"></span> أقرب مكتب ارشاد   </a></li>
+                <li><a role="menuitem" data-target="#panelGo" aria-haspopup="true"> <span class="glyphicon glyphicon-map-marker"></span> أقرب مسجد   </a></li>
+                <li><a role="menuitem" data-target="#panelGo" aria-haspopup="true"> <span class="glyphicon glyphicon-map-marker"></span> أقرب دورة مياه   </a></li>
 
 
 
                 <li><a role="menuitem" tabindex="0" data-target="#panelBasemaps" aria-haspopup="true"><span class="glyphicon glyphicon-th-large"></span> خرائط الاساس</a></li>
-                <li><a role="menuitem" tabindex="0" data-target="#panelBookmarks" aria-haspopup="true"><span class="glyphicon glyphicon-book"></span> علامات</a></li>
+                <li><a role="menuitem" tabindex="0" data-target="#panelBookmarks" aria-haspopup="true"><span class="glyphicon glyphicon-book"></span> ملخص الحاله</a></li>
                 <li><a role="menuitem" tabindex="0" data-target="#panelLegend" aria-haspopup="true"><span class="glyphicon glyphicon-list"></span> مفتاح الخريطه</a></li>
                 <li><a role="menuitem" tabindex="0" data-target="#panelLayerlist" aria-haspopup="true"><span class="glyphicon glyphicon-list-alt"></span> طبقات الخريطه</a></li>
                 <li><a role="menuitem" tabindex="0" data-target="#panelInfo" aria-haspopup="true"><span class="glyphicon glyphicon-info-sign"></span> المساعدة</a></li>
@@ -295,8 +296,8 @@
         </div>
         <!-- Nav -->
         <ul class="calcite-nav nav navbar-nav">
-            <li class="active"><a id="mapNav" class="hidden-xs hidden-sm" href="#mapTab" aria-controls="mapTab" aria-expanded="true" role="tab" data-toggle="tab" data-tooltip="tip" title="2D View" data-placement="bottom">خريطة</a></li>
-            <li><a id="sceneNav" class="hidden-xs hidden-sm" href="#sceneTab" aria-controls="sceneTab" role="tab" data-toggle="tab" data-tooltip="tip" title="3D View" data-placement="bottom">كرة أرضية</a></li>
+            <li class="active"><a id="mapNav" class="hidden-xs hidden-sm" href="#mapTab" aria-controls="mapTab" aria-expanded="true" role="tab" data-toggle="tab" data-tooltip="tip" title="2D View" data-placement="bottom">خريطه</a></li>
+            <li><a id="sceneNav" class="hidden-xs hidden-sm" href="#sceneTab" aria-controls="sceneTab" role="tab" data-toggle="tab" data-tooltip="tip" title="3D View" data-placement="bottom">خريطة ثلاثة الابعاد</a></li>
             <li><div class="calcite-navbar-search calcite-search-expanded" tabindex="-1"><div id="searchNavDiv" tabindex="0"></div></div></li>
         </ul>
     </nav><!--/.navbar -->
